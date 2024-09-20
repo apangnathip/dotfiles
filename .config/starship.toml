@@ -1,0 +1,23 @@
+# format = "$all$time$character"
+# command_timeout = 1000
+
+[character]
+vimcmd_symbol = "[❮](bold #4d9eaa)"
+vimcmd_visual_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold #f6c177)"
+vimcmd_replace_one_symbol = "[❮](bold #f6c177)"
+
+[username]
+format = "[$user : ]($style)"
+disabled = false
+show_always = true
+
+[directory]
+truncation_symbol = "../"
+read_only = " 󰌾"
+
+[time]
+style = "bold #98c379"
+disabled = false 
+format = "[$time ]($style)"
+time_format = "%I:%M"
