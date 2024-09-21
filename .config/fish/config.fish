@@ -18,5 +18,6 @@ bind --mode insert --sets-mode default jk repaint
 
 alias vim="nvim"
 alias ls="exa"
-alias ll="exa --long --all"
+alias ll="exa --long"
+alias la="exa --long --all"
 alias lt="exa --tree --level=3"
