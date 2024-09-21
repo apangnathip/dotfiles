@@ -29,6 +29,6 @@ return {
 			skip_confirm_for_simple_edits = true,
 			prompt_save_on_select_new_entry = false,
 		})
-		vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>")
+		vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Explorer Oil" })
 	end,
 }
