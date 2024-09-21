@@ -16,8 +16,11 @@ set fish_cursor_replace_one underscore
 set fish_cursor_replace underscore
 bind --mode insert --sets-mode default jk repaint
 
+alias bat="batcat"
 alias vim="nvim"
-alias ls="exa"
-alias ll="exa --long"
-alias la="exa --long --all"
-alias lt="exa --tree --level=3"
+alias ls="eza -l --no-user --git --icons=always --no-time --no-permissions"
+alias ll="eza -l --git --icons=always --time-style=relative"
+alias la="eza -l --all -G --git --icons=always --time-style=relative"
+alias lt="eza -T --level=3"
+
+fzf_configure_bindings --directory=\e\cf --variables=\e\cv
