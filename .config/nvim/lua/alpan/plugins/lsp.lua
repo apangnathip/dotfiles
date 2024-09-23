@@ -140,9 +140,9 @@ return {
 					"lua_ls",
 					"emmet_ls",
 					"clangd",
+					"biome",
 					"pyright",
 					"stylua",
-					"prettierd",
 					"black",
 					"isort",
 					"elixirls",
@@ -171,8 +171,13 @@ return {
 							},
 						})
 					end,
-					rust_analyzer = function()
-						return true
+					biome = function()
+						lspconfig.biome.setup({
+							formatter = {
+								quoteStyle = "single",
+								lineWidth = 100,
+							},
+						})
 					end,
 				},
 			})
