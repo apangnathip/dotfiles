@@ -24,20 +24,15 @@ return {
 				python = { "isort", "black" },
 				c = { "clangd" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 500,
+			format_after_save = {
+				lsp_format = "fallback",
 			},
-			quiet = true,
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
-				lsp_fallback = true,
-				async = false,
 				timeout_ms = 500,
-			}, { desc = "Format by conform" })
-		end)
+			})
+		end, { desc = "Format" })
 	end,
 }
