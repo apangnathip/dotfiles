@@ -21,4 +21,5 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { desc = "Clear Highlights" })
 
-vim.keymap.set("n", "q", "<C-v>")
+vim.keymap.set("n", "q", "<C-v>", { desc = "Visual Block" })
+vim.keymap.set("n", "<leader>q", "q", { noremap = true, desc = "Macro" })
