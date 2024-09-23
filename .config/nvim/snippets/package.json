@@ -1,0 +1,11 @@
+{
+	"name": "alpan-snippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": ["javascriptreact", "typescriptreact"],
+				"path": "./react.json"
+			}
+		]
+	}
+}
