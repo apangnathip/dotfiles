@@ -4,13 +4,6 @@ return {
 	config = function()
 		local conform = require("conform")
 		conform.setup({
-			formatters = {
-				biome = {
-					env = {
-						BIOME_CONFIG_PATH = "~/.config/",
-					},
-				},
-			},
 			formatters_by_ft = {
 				javascript = { "biome" },
 				typescript = { "biome" },
