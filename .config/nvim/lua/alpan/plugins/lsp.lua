@@ -1,18 +1,43 @@
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
 		dependencies = {
 			{
-				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
 				"hrsh7th/cmp-cmdline",
-				"L3MON4D3/LuaSnip",
-				"saadparwaiz1/cmp_luasnip",
-				"onsails/lspkind-nvim",
 			},
 		},
+		config = function()
+			local cmp = require("cmp")
+			cmp.setup.cmdline({ "/", "?" }, {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
+				}),
+				matching = { disallow_symbol_nonprefix_matching = false },
+			})
+		end,
+	},
+
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind-nvim",
+		},
+		event = "InsertEnter",
 		config = function()
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets" } })
@@ -45,13 +70,6 @@ return {
 						maxwidth = 50,
 						ellipsis_char = "...",
 					}),
-				},
-			})
-
-			cmp.setup.cmdline({ "/", "?" }, {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-					{ name = "buffer" },
 				},
 			})
 		end,

@@ -1,7 +1,7 @@
 return {
 	"laytan/tailwind-sorter.nvim",
 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-	event = { "BufReadPre", "BufNewFile" },
+	ft = { "html", "javascript", "typescript", "typescriptreact", "javascriptreact", "svelte", "css" },
 	build = "cd formatter && npm i && npm run build",
 	config = function()
 		require("tailwind-sorter").setup({
