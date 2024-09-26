@@ -118,6 +118,7 @@ return {
 					"isort",
 					"elixirls",
 					"rust_analyzer",
+					"jsonls",
 				},
 				run_on_start = true,
 				auto_start = true,
