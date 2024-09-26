@@ -6,7 +6,6 @@ end
 starship init fish | source
 
 set PATH /home/alpan/.nvm/versions/node/v20.9.0/bin $PATH /home/alpan/.local/bin
-set -U fish_greeting
 set fish_color_valid_path
 
 # VI MODE STUFF
@@ -26,3 +25,8 @@ alias lt="eza -T --level=3"
 fzf_configure_bindings --directory=\e\cf --variables=\e\cv
 
 zoxide init fish | source
+
+set shell_counter (ps a | awk '{print $5}' | grep "\-fish" | wc -l)
+if test "$shell_counter" = 1
+  fastfetch
+end
