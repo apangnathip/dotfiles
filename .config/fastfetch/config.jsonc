@@ -3,11 +3,12 @@
   "logo": {
     "source": "~/.config/fastfetch/me.txt",
     "color": {
-      "1": "cyan",
+      "1": "white",
       "2": "yellow",
       "3": "red",
       "4": "black",
       "5": "white",
+      "6": "yellow",
       "7": "dim_",
       "8": "bright_",
       "9": "reset_"
