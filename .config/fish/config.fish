@@ -5,7 +5,7 @@ end
 
 starship init fish | source
 
-set PATH /home/alpan/.nvm/versions/node/v20.9.0/bin $PATH /home/alpan/.local/bin
+set -gx PATH /home/alpan/.nvm/versions/node/v20.9.0/bin /home/alpan/.local/bin "/mnt/c/Users/alpan/AppData/Local/Programs/Microsoft VS Code/bin" $PATH
 set fish_color_valid_path
 
 # VI MODE STUFF
@@ -17,6 +17,7 @@ bind --mode insert --sets-mode default jk repaint
 
 alias bat="batcat"
 alias vim="nvim"
+alias win="~/explorer.exe"
 alias ls="eza -l --no-user --git --icons=always --no-time --no-permissions"
 alias ll="eza -l --git --icons=always --time-style=relative"
 alias la="eza -l --all -G --git --icons=always --time-style=relative"
