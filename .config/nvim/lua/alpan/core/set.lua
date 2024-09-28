@@ -3,6 +3,8 @@ vim.g.lisp_rainbow = 1
 
 vim.opt.guicursor = "n-v-c:block-bCursor,i:ver10-iCursor"
 
+vim.opt.cursorline = true
+
 vim.opt.nu = true
 vim.opt.rnu = true
 

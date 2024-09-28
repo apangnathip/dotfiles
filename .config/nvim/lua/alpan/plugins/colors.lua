@@ -12,6 +12,7 @@ return {
 			highlight_groups = {
 				iCursor = { bg = "white" },
 				bCursor = { bg = "Muted" },
+				CursorLine = { bg = "#281e30" },
 			},
 		})
 		vim.cmd.colorscheme("rose-pine-moon")
