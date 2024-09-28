@@ -1,6 +1,6 @@
 if status is-interactive
 and not set -q TMUX
-  exec tmux
+  exec tmux new-session -A -s 0 
 end
 
 starship init fish | source
@@ -29,5 +29,6 @@ zoxide init fish | source
 
 set shell_counter (ps a | awk '{print $5}' | grep "\-fish" | wc -l)
 if test "$shell_counter" = 1
+  echo
   fastfetch
 end
