@@ -8,6 +8,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
+vim.opt.cmdheight = 0
 
 vim.opt.signcolumn = "yes:1"
 
