@@ -1,21 +1,40 @@
 return {
-  "nvim-lualine/lualine.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function()
-    local trans_auto = require("lualine.themes.auto")
+	"nvim-lualine/lualine.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	config = function()
+		local trans_auto = require("lualine.themes.auto")
 
-    trans_auto.normal.c.bg = ""
-    trans_auto.insert.c.bg = ""
-    trans_auto.visual.c.bg = ""
-    trans_auto.replace.c.bg = ""
-    trans_auto.command.c.bg = ""
-    trans_auto.inactive.c.bg = ""
+		local colors = {
+			primary = "#bebcd1",
+			secondary = "#908caa",
+			black = "#29273c",
+		}
 
-    require("lualine").setup({
-      options = {
-        theme = trans_auto,
-        component_separators = { left = ">", right = "<" },
-      },
-    })
-  end,
+		trans_auto.normal.a.bg = colors.primary
+		trans_auto.normal.a.fg = colors.black
+		trans_auto.normal.b.bg = colors.secondary
+		trans_auto.normal.b.fg = colors.black
+		trans_auto.normal.c.bg = ""
+		trans_auto.insert.c.bg = ""
+		trans_auto.visual.c.bg = ""
+		trans_auto.replace.c.bg = ""
+		trans_auto.command.c.bg = ""
+		trans_auto.inactive.c.bg = ""
+
+		require("lualine").setup({
+			options = {
+				theme = trans_auto,
+				component_separators = { left = "|", right = "|" },
+				section_separators = { left = "", right = "" },
+			},
+			sections = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch" },
+				lualine_c = { "filename" },
+				lualine_x = { "filetype" },
+				lualine_y = { "progress" },
+				lualine_z = { "location" },
+			},
+		})
+	end,
 }
