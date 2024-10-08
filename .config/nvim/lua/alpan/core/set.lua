@@ -3,8 +3,9 @@ vim.g.lisp_rainbow = 1
 
 vim.opt.guicursor = "n-v-c:block-bCursor,i:ver10-iCursor"
 
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 vim.opt.cursorline = true
-vim.opt.colorcolumn = "80"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
@@ -32,6 +33,16 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 750
+
+vim.opt.fillchars = {
+	horiz = "━",
+	horizup = "┻",
+	horizdown = "┳",
+	vert = "┃",
+	vertleft = "┫",
+	vertright = "┣",
+	verthoriz = "╋",
+}
 
 vim.api.nvim_set_hl(0, "CursorReset", { bg = "#ffffff", fg = "#ffffff" })
 
