@@ -8,18 +8,19 @@ return {
 			primary = "#bebcd1",
 			secondary = "#908caa",
 			black = "#29273c",
+			dpurp = "#281e30",
 		}
 
 		trans_auto.normal.a.bg = colors.primary
 		trans_auto.normal.a.fg = colors.black
 		trans_auto.normal.b.bg = colors.secondary
 		trans_auto.normal.b.fg = colors.black
-		trans_auto.normal.c.bg = ""
+		trans_auto.normal.c.bg = colors.dpurp
 		trans_auto.insert.c.bg = ""
 		trans_auto.visual.c.bg = ""
 		trans_auto.replace.c.bg = ""
 		trans_auto.command.c.bg = ""
-		trans_auto.inactive.c.bg = ""
+		trans_auto.inactive.c.bg = colors.dpurp
 
 		require("lualine").setup({
 			options = {
