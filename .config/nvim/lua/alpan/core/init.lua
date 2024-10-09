@@ -1,2 +1,2 @@
-require("alpan.core.remap")
+require("alpan.core.keymap")
 require("alpan.core.set")

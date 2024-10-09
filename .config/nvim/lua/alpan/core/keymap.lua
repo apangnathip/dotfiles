@@ -5,8 +5,10 @@ set("n", " ", "<Nop>", { noremap = true })
 set("i", "jk", "<Esc>", { noremap = true })
 set("n", "x", '"_x')
 
-set("v", "J", ":m '>+1<CR>gv=gv")
-set("v", "K", ":m '<-2<CR>gv=gv")
+set("v", "J", ":m +1<CR>gv=gv")
+set("v", "K", ":m -2<CR>gv=gv")
+set("v", "L", "xp`[v`]")
+set("v", "H", "xhhp`[v`]")
 
 set("n", "<C-d>", "<C-d>zz")
 set("n", "<C-u>", "<C-u>zz")
