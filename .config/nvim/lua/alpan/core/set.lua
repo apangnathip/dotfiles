@@ -1,39 +1,40 @@
+local opt = vim.opt
+
 vim.g.mapleader = " "
-vim.g.lisp_rainbow = 1
 
-vim.opt.guicursor = "n-v-c:block-bCursor,i:ver10-iCursor"
+opt.guicursor = "n-v-c:block-bCursor,i:ver10-iCursor"
 
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-vim.opt.cursorline = true
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.opt.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
+opt.cursorline = true
+opt.relativenumber = true
+opt.number = true
+opt.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
 
-vim.opt.signcolumn = "yes:1"
+opt.signcolumn = "yes:1"
 
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+opt.splitright = true
+opt.splitbelow = true
 
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.showmode = false
-vim.opt.wrap = false
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
+opt.smartindent = true
+opt.showmode = false
+opt.wrap = false
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.swapfile = false
+opt.backup = false
+opt.undofile = true
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
-vim.opt.scrolloff = 8
+opt.scrolloff = 8
 
-vim.opt.updatetime = 750
+opt.updatetime = 750
 
-vim.opt.fillchars = {
+opt.fillchars = {
 	horiz = "━",
 	horizup = "┻",
 	horizdown = "┳",
@@ -42,6 +43,8 @@ vim.opt.fillchars = {
 	vertright = "┣",
 	verthoriz = "╋",
 }
+
+opt.inccommand = "split"
 
 vim.api.nvim_set_hl(0, "CursorReset", { bg = "#ffffff", fg = "#ffffff" })
 
