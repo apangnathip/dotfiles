@@ -44,8 +44,6 @@ opt.fillchars = {
 	verthoriz = "╋",
 }
 
-opt.inccommand = "split"
-
 vim.api.nvim_set_hl(0, "CursorReset", { bg = "#ffffff", fg = "#ffffff" })
 
 vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "setlocal formatoptions-=cro" })
