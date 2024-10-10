@@ -120,7 +120,7 @@ return {
 					"rust_analyzer",
 					"jsonls",
 				},
-				run_on_start = true,
+				run_on_start = false,
 				auto_start = true,
 			})
 
