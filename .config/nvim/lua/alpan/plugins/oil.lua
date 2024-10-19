@@ -6,13 +6,14 @@ return {
 	config = function()
 		require("oil").setup({
 			use_default_keymaps = false,
+			watch_for_changes = true,
 			keymaps = {
 				["g?"] = "actions.show_help",
 				["<CR>"] = "actions.select",
 				["<C-t>"] = "actions.select_tab",
 				["<C-p>"] = "actions.preview",
 				["<C-c>"] = "actions.close",
-				["<C-;>"] = "actions.refresh",
+				["<C-n>"] = "actions.refresh",
 				["-"] = "actions.parent",
 				["_"] = "actions.open_cwd",
 				["`"] = "actions.cd",
@@ -29,6 +30,6 @@ return {
 			skip_confirm_for_simple_edits = true,
 			prompt_save_on_select_new_entry = false,
 		})
-		vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Explorer Oil" })
+		vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "" })
 	end,
 }
