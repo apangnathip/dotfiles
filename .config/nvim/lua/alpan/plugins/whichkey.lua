@@ -10,4 +10,13 @@ return {
 		sort = { "local", "group" },
 		expand = 2,
 	},
+	keys = {
+		{
+			"<leader>?",
+			function()
+				require("which-key").show({ global = true })
+			end,
+			desc = "Buffer Local Keymaps",
+		},
+	},
 }
