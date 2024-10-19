@@ -5,7 +5,7 @@ return {
 		require("auto-session").setup({
 			suppress_dirs = { "~/", "/" },
 			enabled = true,
-			auto_restore = true,
+			auto_restore = false,
 			auto_save = true,
 		})
 		vim.keymap.set("n", "<leader>sr", "<cmd>SessionRestore<CR>", { desc = "Restore session" })
