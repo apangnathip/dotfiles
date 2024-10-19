@@ -10,6 +10,7 @@ return {
 		},
 		config = function()
 			local cmp = require("cmp")
+
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
@@ -18,7 +19,26 @@ return {
 			})
 
 			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
+				mapping = cmp.mapping.preset.insert({
+					["<Tab>"] = {
+						c = function()
+							if cmp.visible() then
+								cmp.select_next_item()
+							else
+								cmp.complete()
+							end
+						end,
+					},
+					["<S-Tab>"] = {
+						c = function()
+							if cmp.visible() then
+								cmp.select_prev_item()
+							else
+								cmp.complete()
+							end
+						end,
+					},
+				}),
 				sources = cmp.config.sources({
 					{ name = "path" },
 				}, {
