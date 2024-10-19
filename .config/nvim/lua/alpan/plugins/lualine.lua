@@ -16,10 +16,10 @@ return {
 		trans_auto.normal.b.bg = colors.secondary
 		trans_auto.normal.b.fg = colors.black
 		trans_auto.normal.c.bg = colors.dpurp
-		trans_auto.insert.c.bg = ""
-		trans_auto.visual.c.bg = ""
-		trans_auto.replace.c.bg = ""
-		trans_auto.command.c.bg = ""
+		trans_auto.insert.c.bg = colors.dpurp
+		trans_auto.visual.c.bg = colors.dpurp
+		trans_auto.replace.c.bg = colors.dpurp
+		trans_auto.command.c.bg = colors.dpurp
 		trans_auto.inactive.c.bg = colors.dpurp
 
 		require("lualine").setup({
