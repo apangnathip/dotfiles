@@ -14,6 +14,8 @@ return {
 			"╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
 		}
 
+		startify.section.header.opts.hl = "text"
+
 		startify.section.top_buttons.val = {
 			startify.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
 			startify.button("f", "  Find file", "<CMD>Telescope find_files<CR>"),
@@ -22,6 +24,7 @@ return {
 
 		startify.section.mru.val = { { type = "padding", val = 0 } }
 		startify.section.mru_cwd.val[2].val = "MRU @  " .. vim.fn.getcwd()
+		startify.section.mru_cwd.val[2].opts.hl = "text"
 		startify.section.bottom_buttons.val = {}
 
 		local handle = io.popen("fortune")

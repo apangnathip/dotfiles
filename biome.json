@@ -7,7 +7,15 @@
     "indentStyle": "space"
   },
   "linter": {
-    "enabled": true
+    "enabled": true,
+    "rules": {
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        "useMediaCaption": "off"
+      }
+    }
   },
   "organizeImports": {
     "enabled": true

@@ -5,12 +5,10 @@ fi
 alias vim=nvim
 alias emacs="emacs -nw"
 alias expl="~/explorer.exe"
+alias swi="rlswap swipl"
 
 . "$HOME/.asdf/asdf.sh"
 export PATH="$PATH:/mnt/c/Users/alpan/AppData/Local/Programs/Microsoft VS Code/bin:/opt/nvim-linux64/bin"
-export CDPATH=~/symlinks
-
-alias start="/mnt/c/Windows/explorer.exe"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)

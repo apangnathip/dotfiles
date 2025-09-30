@@ -25,7 +25,7 @@ return {
 		require("lualine").setup({
 			options = {
 				theme = trans_auto,
-				component_separators = { left = "|", right = "|" },
+				component_separators = { left = "", right = "|" },
 				section_separators = { left = "", right = "" },
 			},
 			sections = {
