@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", { pattern = "cpp", command = "set tabsto
 vim.api.nvim_create_autocmd("FileType", { pattern = "cpp", command = "set tabstop=4 shiftwidth=4" })
 vim.api.nvim_create_autocmd(
 	"BufRead",
-	{ pattern = "*.vert,*.frag,", command = "set filetype=glsl tabstop=4 shiftwidth=4" }
+	{ pattern = "*.vert,*.frag,*.fs,*.vs", command = "set filetype=glsl tabstop=4 shiftwidth=4" }
 )
 
 vim.diagnostic.config({ underline = true, virtual_text = true })

@@ -5,7 +5,7 @@ end
 
 starship init fish | source
 
-set -gx PATH /home/alpan/.nvm/versions/node/v20.9.0/bin /home/alpan/.local/bin "/mnt/c/Users/alpan/AppData/Local/Programs/Microsoft VS Code/bin" $PATH
+set -gx PATH /usr/libexec/gcc/x86_64-linux-gnu/14/cc1 /home/alpan/.nvm/versions/node/v20.9.0/bin /home/alpan/.local/bin "/mnt/c/Users/alpan/AppData/Local/Programs/Microsoft VS Code/bin" $PATH
 set fish_color_valid_path
 
 # VI MODE STUFF
