@@ -14,7 +14,7 @@ show_always = true
 
 [directory]
 truncation_symbol = "../"
-read_only = " 󰌾"
+read_only = " !"
 
 [time]
 style = "bold #98c379"

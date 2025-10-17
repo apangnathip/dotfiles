@@ -1,0 +1,1 @@
+/mnt/c/Users/Alpan/.config/wezterm/wezterm.lua
