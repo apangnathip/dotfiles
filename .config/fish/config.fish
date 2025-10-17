@@ -17,7 +17,7 @@ alias swi="rlwrap swipl"
 
 function sessionizer
     ~/.config/scripts/tmux-sessionizer.sh
-    # commandline -f repaint
+    commandline -f repaint
 end
 
 bind \ef sessionizer 
