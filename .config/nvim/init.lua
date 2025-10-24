@@ -18,46 +18,45 @@ vim.o.signcolumn = "yes:1"
 vim.o.ignorecase = true
 vim.o.winborder = "rounded"
 vim.o.showmode = false
+vim.o.clipboard = "unnamedplus"
 
-local map = vim.keymap.set
-map("i", "jk", "<Esc>")
-map("n", ";", ":")
-map("n", ":", ";")
-map("n", " ", "<Nop>")
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-map("n", "x", '"_x')
-map("n", "q", "<C-v>")
-map("n", "<M-n>", "<C-w>5<")
-map("n", "<M-.>", "<C-w>5>")
-map("n", "<M-,>", "<C-w>5-")
-map("n", "<M-m>", "<C-w>5+")
-map("n", "<M-=>", "<C-w>=")
-map("v", "J", ":m '>+1<cr>gv=gv")
-map("v", "K", ":m '<-2<cr>gv=gv")
-map("v", "L", "xp`[v`]")
-map("v", "H", "xhhp`[v`]")
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
-map("n", "<leader>p", "<cmd>Oil<cr>")
-map("n", "<leader>q", "q", { noremap = true })
-map("n", "<leader>h", "<cmd>nohlsearch<cr>")
-map("n", "grn", "viwo<esc><cmd>lua vim.lsp.buf.rename()<cr>")
-map("n", "gwd", vim.diagnostic.open_float)
-map("i", "K", vim.lsp.buf.signature_help)
-map({ "n", "v" }, "<leader>y", '"+y')
-map({ "n", "v" }, "<leader>d", '"_d')
+vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>")
+vim.keymap.set("n", "<leader>gs", "<cmd>Git<cr>")
+vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("n", " ", "<Nop>")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "x", '"_x')
+vim.keymap.set("n", "q", "<C-v>")
+vim.keymap.set("n", "<M-n>", "<C-w>5<")
+vim.keymap.set("n", "<M-.>", "<C-w>5>")
+vim.keymap.set("n", "<M-,>", "<C-w>5-")
+vim.keymap.set("n", "<M-m>", "<C-w>5+")
+vim.keymap.set("n", "<M-=>", "<C-w>=")
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
+vim.keymap.set("v", "L", "xp`[v`]")
+vim.keymap.set("v", "H", "xhhp`[v`]")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "<leader>p", "<cmd>Oil<cr>")
+vim.keymap.set("n", "<leader>q", "q", { noremap = true })
+vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<cr>")
+vim.keymap.set("n", "gwd", vim.diagnostic.open_float)
+vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
+vim.keymap.set("n", "grn", vim.lsp.buf.rename)
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
+vim.keymap.set({ "n", "v" }, ";", ":")
+vim.keymap.set({ "n", "v" }, ":", ";")
 
 vim.pack.add({
+	"file:///home/alpan/proj/inline-rename",
 	"https://github.com/rose-pine/neovim",
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/nvim-lua/plenary.nvim",
-	"https://github.com/nvim-telescope/telescope.nvim",
-	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/nvim-mini/mini.surround",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/windwp/nvim-autopairs",
@@ -66,16 +65,145 @@ vim.pack.add({
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/tpope/vim-fugitive",
 	"https://github.com/lukas-reineke/indent-blankline.nvim",
-	"https://github.com/stevearc/dressing.nvim",
+	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/folke/flash.nvim",
+	"https://github.com/tpope/vim-dispatch",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 })
 
 require("nvim-autopairs").setup()
 require("mini.surround").setup()
-require("dressing").setup()
 require("mason").setup()
 
+-- {{{ Utils
+local utils = {
+	contains = function(tab, val)
+		for _, v in ipairs(tab) do
+			if v == val then
+				return true
+			end
+		end
+		return false
+	end,
+	pack_clean = function()
+		local unused = {}
+
+		for _, plugin in ipairs(vim.pack.get()) do
+			if not plugin.active then
+				table.insert(unused, plugin.spec.name)
+			end
+		end
+
+		if #unused == 0 then
+			print("No unused plugins.")
+			return
+		end
+
+		local choice = vim.fn.confirm("Remove unused plugins: " .. table.concat(unused, ", ") .. "?", "&Yes\n&No", 2)
+		if choice == 1 then
+			vim.pack.del(unused)
+		end
+	end,
+}
+
+table.unpack = table.unpack or unpack
+vim.api.nvim_create_user_command("PackClean", utils.pack_clean, {})
+-- }}}
+
+-- {{{ Treesitter
+vim.keymap.set({ "x", "o" }, "as", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@local.scope", "locals")
+end)
+vim.keymap.set({ "x", "o" }, "af", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "if", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ac", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ic", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ai", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@conditional.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ii", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@conditional.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "al", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@loop.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "il", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
+end)
+-- }}}
+
+-- {{{ Navigation
+require("oil").setup({
+	delete_to_trash = true,
+	watch_for_changes = true,
+	skip_confirm_for_simple_edits = true,
+	lsp_file_methods = { autosave_changes = true },
+	view_options = { show_hidden = true },
+
+	keymaps = {
+		["gr"] = "actions.refresh",
+		["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+		["<C-v>"] = { "actions.select", opts = { vertical = true } },
+		["<C-h>"] = {},
+		["<C-l>"] = {},
+	},
+})
+
+local fzf = require("fzf-lua")
+
+fzf.setup({
+	grep = {
+		hidden = true,
+		follow = true,
+	},
+	helptags = {
+		actions = {
+			["enter"] = fzf.actions.help_vert,
+		},
+	},
+	manpages = {
+		previewer = "man_native",
+		actions = {
+			["enter"] = fzf.actions.man_vert,
+		},
+	},
+})
+
+vim.keymap.set("n", "<leader>f", fzf.files)
+vim.keymap.set("n", "<leader>b", fzf.buffers)
+vim.keymap.set("n", "<leader>l", fzf.live_grep)
+vim.keymap.set("n", "<leader>sh", fzf.helptags)
+vim.keymap.set("n", "<leader>ss", fzf.builtin)
+vim.keymap.set("n", "<leader>sm", fzf.man_pages)
+
+vim.keymap.set({ "n", "x", "o" }, "<cr>", function()
+	require("flash").jump()
+end)
+vim.keymap.set({ "n", "x", "o" }, "<s-cr>", function()
+	require("flash").treesitter()
+end)
+vim.keymap.set("o", "r", function()
+	require("flash").remote()
+end)
+vim.keymap.set({ "o", "x" }, "R", function()
+	require("flash").treesitter_search()
+end)
+vim.keymap.set({ "c" }, "<c-s>", function()
+	require("flash").toggle()
+end)
+-- }}}
+
+-- {{{ LSP
 vim.lsp.enable({ "lua_ls", "bashls", "basedpyright", "clangd", "biome", "fish_lsp" })
 vim.lsp.config("lua_ls", {
 	settings = {
@@ -87,13 +215,12 @@ vim.lsp.config("lua_ls", {
 	},
 })
 
-require("blink.cmp").setup({
+local blink = require("blink.cmp")
+blink.setup({
 	keymap = {
 		["<Tab>"] = {
 			function(cmp)
-				if cmp.snippet_active() then
-					return cmp.accept()
-				else
+				if not cmp.snippet_active() then
 					return cmp.select_and_accept()
 				end
 			end,
@@ -115,7 +242,6 @@ require("conform").setup({
 		python = { "black" },
 		cpp = { "clang-format" },
 		c = { "clang-format" },
-		glsl = { "clang-format" },
 		javascript = { "biome" },
 		typescript = { "biome" },
 		html = { "biome" },
@@ -125,6 +251,11 @@ require("conform").setup({
 	},
 })
 
+vim.keymap.set("n", "<leader>c", require("conform").format)
+vim.keymap.set("n", "grn", require("inline-rename").rename)
+-- }}}
+
+-- {{{ Theme
 require("rose-pine").setup({
 	styles = {
 		transparency = true,
@@ -168,21 +299,6 @@ require("lualine").setup({
 	},
 })
 
-require("oil").setup({
-	delete_to_trash = true,
-	watch_for_changes = true,
-	lsp_file_methods = { autosave_changes = true },
-	view_options = { show_hidden = true },
-	keymaps = {
-		["g%"] = { "actions.select", opts = { vertical = true } },
-		['g"'] = { "actions.select", opts = { horizontal = true } },
-		["gr"] = "actions.refresh",
-		["<C-h>"] = {},
-		["<C-l>"] = {},
-		["<C-s>"] = {},
-	},
-})
-
 local hooks = require("ibl.hooks")
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 	vim.api.nvim_set_hl(0, "IndentHL", { fg = "#22192a" })
@@ -195,92 +311,75 @@ require("ibl").setup({
 		},
 	},
 })
+-- }}}
 
-local telescope = require("telescope")
-telescope.setup({
-	defaults = {
-		preview = { treesitter = false },
-		path_displays = { "smart" },
-		sorting_strategy = "ascending",
-		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-		layout_config = {
-			height = 100,
-			width = 400,
-			prompt_position = "top",
-			preview_cutoff = 40,
-		},
-	},
-	pickers = {
-		find_files = {
-			follow = true,
-			hidden = true,
-		},
-		live_grep = {
-			additional_args = { "--hidden", "-L" },
-		},
-	},
-})
-telescope.load_extension("fzf")
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("YankHL", { clear = true }),
-	pattern = "*",
-	command = "silent! lua vim.hl.on_yank()",
-})
+-- {{{ Autocmds
+local al_au = vim.api.nvim_create_augroup("alpan", { clear = true })
+local ts_au = vim.api.nvim_create_augroup("nvim_treesitter", { clear = true })
 
 vim.api.nvim_create_autocmd("PackChanged", {
-	group = vim.api.nvim_create_augroup("fzfUpdate", { clear = true }),
+	group = ts_au,
 	callback = function(args)
-		if args.data.spec.name == "telescope-fzf-native.nvim" and args.data.kind ~= "delete" then
-			vim.notify(args.data.spec.name .. " has been updated.")
+		local plugins = { "nvim-treesitter", "nvim-treesitter-textobjects" }
+		if utils.contains(plugins, args.data.spec.name) and args.data.kind ~= "delete" then
 			vim.schedule(function()
-				vim.system({ "make" }, { cwd = args.data.path })
+				vim.cmd("TSUpdate")
 			end)
 		end
 	end,
 })
 
-local function pack_clean()
-	local unused = {}
+vim.api.nvim_create_autocmd("FileType", {
+	group = ts_au,
+	pattern = "*",
+	callback = function(ev)
+		local nvim_ts = require("nvim-treesitter")
+		local parser = vim.treesitter.language.get_lang(ev.match)
 
-	for _, plugin in ipairs(vim.pack.get()) do
-		if not plugin.active then
-			table.insert(unused, plugin.spec.name)
+		if not utils.contains(nvim_ts.get_available(), parser) then
+			return
 		end
-	end
 
-	if #unused == 0 then
-		print("No unused plugins.")
-		return
-	end
+		if not utils.contains(nvim_ts.get_installed(), parser) then
+			nvim_ts.install({ parser }):wait(300000)
+		end
 
-	local choice = vim.fn.confirm("Remove unused plugins: " .. table.concat(unused, ", ") .. "?", "&Yes\n&No", 2)
-	if choice == 1 then
-		vim.pack.del(unused)
-	end
-end
+		vim.treesitter.start()
+	end,
+})
 
-local builtin = require("telescope.builtin")
-
-map("n", "<leader>f", builtin.find_files)
-map("n", "<leader>l", builtin.live_grep)
-map("n", "<leader>b", builtin.buffers)
-map("n", "<leader>ss", builtin.builtin)
-map("n", "<leader>sh", builtin.help_tags)
-map("n", "<leader>sm", builtin.man_pages)
-map("n", "<leader>vpc", pack_clean)
-map("n", "<leader>u", "<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>")
-map("n", "<leader>c", require("conform").format)
-map("n", "<leader>gs", "<cmd>Git<cr>")
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = al_au,
+	pattern = "*",
+	command = "lua vim.hl.on_yank()",
+})
 
 vim.api.nvim_create_autocmd("BufEnter", {
-	group = vim.api.nvim_create_augroup("RemoveNLComment", { clear = true }),
+	group = al_au,
 	pattern = "*",
 	command = "setlocal formatoptions-=cro",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("CStyleIndent", { clear = true }),
+	group = al_au,
 	pattern = "cpp",
-	command = "set tabstop=4 shiftwidth=4",
+	callback = function()
+		vim.cmd("set tabstop=4 shiftwidth=4")
+		vim.cmd("let b:dispatch = 'cmake --build build'")
+	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = al_au,
+	pattern = "python",
+	command = "let b:dispatch = 'python3 %'",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = al_au,
+	pattern = "python",
+	command = "let b:dispatch = 'python3 %'",
+})
+-- }}}
+
+-- vim: foldmethod=marker foldlevel=0
