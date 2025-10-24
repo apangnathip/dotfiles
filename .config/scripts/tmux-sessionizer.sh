@@ -4,25 +4,18 @@
 directories=(
   "$HOME"
   "$HOME/uni"
+  "$HOME/uni/*"
   "$HOME/proj"
   "$HOME/work"
 )
 
-while getopts "m" opt; do
-  case $opt in
-    m)
-      margin=1;;
-  esac
-done
-shift $((OPTIND -1))
 
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
-  selected=$(fdfind -td -d1 . "${directories[@]}" |
+  selected=$(fdfind -td -d1 . ${directories[@]} |
     sed "s|^$HOME/||" |
-    # fzf --margin 0,6 --height 50% --layout reverse)
-    fzf ${margin:+--margin 0,6} --height 50% --layout reverse)
+    fzf --height 50%)
 
   if [[ -n $selected ]]; then
     selected="$HOME/$selected"
@@ -40,7 +33,7 @@ if [[ ! $TMUX ]]; then
   exit 0
 fi
 
-if ! tmux has-session -t "$selected_name"; then
+if ! tmux has-session -t "$selected_name" 2> /dev/null; then
   tmux new-session -ds "$selected_name" -c "$selected"
 fi
 

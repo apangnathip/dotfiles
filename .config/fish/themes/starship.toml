@@ -1,5 +1,11 @@
-# format = "$all$time$character"
-# command_timeout = 1000
+format = """
+$username\
+$directory\
+$git_branch\
+$git_status
+$time\
+$character
+"""
 
 [character]
 vimcmd_symbol = "[❮](bold #4d9eaa)"
@@ -14,10 +20,19 @@ show_always = true
 
 [directory]
 truncation_symbol = "../"
-read_only = " !"
+read_only = " -w"
 
 [time]
 style = "bold #98c379"
 disabled = false 
 format = "[$time ]($style)"
 time_format = "%I:%M"
+
+[git_branch]
+format = 'on [$branch]($style) '
+
+[git_status]
+format = '([$conflicted$diverged$untracked$stashed$modified$staged$ahead_behind]($style))'
+ahead = "+${count}"
+behind = "-${count}"
+
