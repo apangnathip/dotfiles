@@ -29,10 +29,10 @@ format = "[$time ]($style)"
 time_format = "%I:%M"
 
 [git_branch]
-format = 'on [$branch]($style) '
+format = "on [$branch]($style) "
 
 [git_status]
-format = '([$conflicted$diverged$untracked$stashed$modified$staged$ahead_behind]($style))'
+format = "([$conflicted$diverged$untracked$stashed$modified$staged$ahead_behind]($style))"
 ahead = "+${count}"
 behind = "-${count}"
 
