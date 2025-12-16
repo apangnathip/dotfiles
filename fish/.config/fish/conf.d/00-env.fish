@@ -13,3 +13,4 @@ set -gx FZF_DEFAULT_OPTS "--color=fg:-1,fg+:#d0d0d0,bg:-1,bg+:#281e30
 --color=prompt:#9ccfd8,spinner:#d0d0d0,pointer:#9ccfd8,
 --color=gutter:#281e30,border:#281e30,separator:#281e30,label:#aeaeae 
 --pointer=▌ --color=query:#d0d0d0 --layout=reverse"
+

@@ -46,11 +46,12 @@ vim.keymap.set("n", "gwd", vim.diagnostic.open_float)
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "grn", vim.lsp.buf.rename)
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
+vim.keymap.set({ "n", "v" }, "<leader>c", '"_c')
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set({ "n", "v" }, ":", ";")
 
 vim.pack.add({
-	"file:///home/alpan/proj/inline-rename",
 	"https://github.com/rose-pine/neovim",
 	"https://github.com/nvim-lualine/lualine.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
@@ -68,14 +69,22 @@ vim.pack.add({
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/tpope/vim-dispatch",
+	"https://github.com/catgoose/nvim-colorizer.lua",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
 })
 
 require("nvim-autopairs").setup()
 require("mini.surround").setup()
 require("mason").setup()
+
+require("colorizer").setup({
+	user_default_options = {
+		mode = "background",
+		css = true,
+	},
+})
 
 -- {{{ Utils
 local utils = {
@@ -177,6 +186,10 @@ fzf.setup({
 			["enter"] = fzf.actions.man_vert,
 		},
 	},
+	hls = {
+		border = "FloatBorder",
+		preview_border = "FloatBorder",
+	},
 })
 
 vim.keymap.set("n", "<leader>f", fzf.files)
@@ -246,23 +259,28 @@ require("conform").setup({
 		typescript = { "biome" },
 		html = { "biome" },
 		css = { "biome" },
-		json = { "biome" },
+		json = { "prettierd" },
+		jsonc = { "prettierd" },
 		sh = { "shfmt" },
 	},
 })
 
-vim.keymap.set("n", "<leader>c", require("conform").format)
-vim.keymap.set("n", "grn", require("inline-rename").rename)
+vim.keymap.set("n", "<leader>gf", require("conform").format)
 -- }}}
 
 -- {{{ Theme
 require("rose-pine").setup({
 	styles = {
-		transparency = true,
+		transparency = false,
 		italic = false,
 		bold = false,
 	},
 	highlight_groups = {
+		Normal = { bg = "#1b1421" },
+		NormalNC = { bg = "#1b1421" },
+		NormalFloat = { bg = "#1b1421" },
+		FloatBorder = { bg = "" },
+		Folded = { bg = "#281E30" },
 		CursorLine = { bg = "#1f1726" },
 		CursorLineNr = { fg = "white" },
 		SignColumn = { bg = "none" },
