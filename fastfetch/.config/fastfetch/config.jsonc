@@ -32,7 +32,6 @@
     "separator",
     "os",
     "host",
-    "kernel",
     "uptime",
     "packages",
     "shell",
@@ -45,7 +44,6 @@
     "wmtheme",
     "theme",
     "font",
-    "cursor",
     "terminal",
     "cpu",
     {

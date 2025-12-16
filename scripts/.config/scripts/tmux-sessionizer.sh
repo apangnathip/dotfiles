@@ -13,7 +13,7 @@ directories=(
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
-  selected=$(fdfind -td -d1 . ${directories[@]} |
+  selected=$(fd -td -d1 . ${directories[@]} |
     sed "s|^$HOME/||" |
     fzf --height 50%)
 

@@ -6,8 +6,7 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.histfile
 HISTCONTROL=ignoreboth
-
-bindkey -e
+ZSH_AUTOSUGGEST_STRATEGY=(history completion) 
 
 autoload -Uz compinit && compinit
 
@@ -20,6 +19,7 @@ autoload -Uz compinit && compinit
 
 setopt autocd
 setopt extendedglob
+setopt globdots
 
 alias vim=nvim
 alias ls="eza"
@@ -27,5 +27,22 @@ alias la="eza -a"
 alias ll="eza -l --no-user --all --git --icons=always --time-style=relative"
 alias lt="eza -T --level=2"
 
-source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+bindkey -v
+bindkey -r "^[p"
+bindkey -r "^[P"
+bindkey -r "^[n"
+bindkey -r "^[N"
+
+bindkey -M viins jk vi-cmd-mode 
+
+tmux-sessionizer() { ~/.config/scripts/tmux-sessionizer.sh; zle reset-prompt; }
+zle -N tmux-sessionizer
+bindkey "^[p" tmux-sessionizer 
+
+bindkey "^f" autosuggest-accept
+
+source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme; [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/alpan/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source <(fzf --zsh)
+
