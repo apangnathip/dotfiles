@@ -1,0 +1,49 @@
+{
+  "layer": "top",
+  "margin": "5 10 0 10",
+  "modules-left": ["hyprland/workspaces", "tray"],
+  "modules-right": ["wireplumber", "network", "battery", "clock"],
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "format-not-charging": " {capacity}%",
+    "format-charging": "󱐋 {capacity}%",
+  },
+  "clock": {
+    "format-alt": "{:%a, %d. %b  %H:%M}",
+  },
+  "wireplumber": {
+    "format": " {volume}%",
+    "format-muted": "",
+    "on-click": "pavucontrol",
+    "max-volume": 100,
+    "scroll-step": 0.2,
+  },
+  "network": {
+    "interface": "wlan0",
+    "format": "{ifname}",
+    "format-wifi": " {essid}",
+    "format-ethernet": "󰊗 {ipaddr}/{cidr}",
+    "format-disconnected": "",
+    "tooltip-format": "󰊗 {ifname} via {gwaddr}",
+    "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": " {ifname}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+    },
+    "persistent-workspaces": {
+      "eDP-1": [1, 2, 3, 4],
+      "DP-1": [5, 6, 7, 8],
+    },
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8,
+  },
+}

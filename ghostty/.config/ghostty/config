@@ -1,0 +1,9 @@
+command = zsh 
+shell-integration = zsh 
+background = #1b1421
+window-vsync = false
+window-padding-x = 4
+window-padding-y = 4,0
+background-opacity = 1
+confirm-close-surface = false
+theme = Rose Pine
