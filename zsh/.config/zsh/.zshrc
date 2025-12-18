@@ -47,7 +47,7 @@ bindkey -r "^[P"
 bindkey -r "^[n"
 bindkey -r "^[N"
 
-tmux-sessionizer() { $XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh; zle reset-prompt; }
+tmux-sessionizer() { "$XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh"; zle reset-prompt; }
 zle -N tmux-sessionizer
 
 bindkey "^[p" tmux-sessionizer 
@@ -82,7 +82,7 @@ cursor_mode
 
 source <(fzf --zsh)
 source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme; [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh
+source "$XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh"
 
