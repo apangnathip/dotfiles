@@ -43,6 +43,8 @@ alias ls="eza -F always"
 alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
 alias lt="eza -TF always --level=2"
+alias tp="trashy put"
+
 alias d="dirs -v | tail -n +2"
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
