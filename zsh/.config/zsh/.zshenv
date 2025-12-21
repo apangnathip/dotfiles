@@ -2,6 +2,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER="nvim +Man!"
 export KEYTIMEOUT=1
+export PATH=$HOME/.local/bin:$PATH
 
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude '.git'"
 export FZF_CTRL_T_COMMAND="fd --type f --hidden --follow --exclude '.git'. \$dir | sed 's#^\./##'"
