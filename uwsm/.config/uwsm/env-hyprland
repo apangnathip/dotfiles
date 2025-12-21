@@ -1,0 +1,6 @@
+export HYPRCURSOR_THEME=BreezeX-RosePine-Hypr
+export HYPRCURSOR_SIZE=24 
+export HYPRSHOT_DIR=~/Pictures/screenshots
+export XDG_MENU_PREFIX=arch-
+export QT_QPA_PLATFORMTHEME=qt6ct
+

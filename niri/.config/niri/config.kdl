@@ -1,0 +1,258 @@
+spawn-at-startup "uwsm" "app" "-s" "b" "--" "awww-daemon" 
+spawn-at-startup "uwsm" "app" "-s" "b" "--" "awww-daemon" "-n" "overview"
+spawn-sh-at-startup "~/.config/scripts/set-wallpaper.sh"
+
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "waybar" 
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "rog-control-center" 
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "clipse" "-listen" 
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "/usr/lib/polkit-kde-authentication-agent-1"
+
+hotkey-overlay { skip-at-startup; }
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H-%M-%S.png"
+animations {}
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Super+Space hotkey-overlay-title="Run Apps" { spawn "rofi" "-show" "drun"; }
+    Super+Alt+L hotkey-overlay-title="Lock Screen" { spawn "hyprlock"; }
+    Super+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
+    Super+B hotkey-overlay-title="Open Browser" { spawn "qutebrowser"; }
+    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn "hyprpicker" "-a"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    XF86Launch1 { spawn "rog-control-center"; }
+
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+L     { move-column-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Super+H     { focus-monitor-left; }
+    Super+J     { focus-monitor-down; }
+    Super+K     { focus-monitor-up; }
+    Super+L     { focus-monitor-right; }
+
+    Super+Shift+H     { move-column-to-monitor-left; }
+    Super+Shift+J     { move-column-to-monitor-down; }
+    Super+Shift+K     { move-column-to-monitor-up; }
+    Super+Shift+L     { move-column-to-monitor-right; }
+
+    Super+Ctrl+Shift+H { move-workspace-to-monitor-left; }
+    Super+Ctrl+Shift+J { move-workspace-to-monitor-down; }
+    Super+Ctrl+Shift+K { move-workspace-to-monitor-up; }
+    Super+Ctrl+Shift+L { move-workspace-to-monitor-right; }
+
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U         { move-workspace-down; }
+    Mod+Shift+I         { move-workspace-up; }
+
+    Alt+MouseMiddle { close-window; }
+
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    Mod+Comma  { consume-window-into-column; }
+    Mod+Period { expel-window-from-column; }
+
+    Mod+R { switch-preset-column-width; }
+    Mod+Ctrl+R { switch-preset-window-height; }
+    Mod+Shift+R { reset-window-height; }
+
+    Mod+S { maximize-column; }
+    Mod+Shift+S { fullscreen-window; }
+    Mod+Ctrl+S { expand-column-to-available-width; }
+
+    Mod+C { center-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    Mod+W { toggle-column-tabbed-display; }
+
+    Shift+F12 { screenshot; }
+    Ctrl+F12 { screenshot-screen; }
+    Alt+F12{ screenshot-window; }
+
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+
+    Mod+Shift+P { power-off-monitors; }
+}
+
+cursor {
+    xcursor-theme "BreezeX-RosePine-Linux"
+    xcursor-size 24
+}
+
+input {
+    keyboard {
+        repeat-delay 200 
+        repeat-rate 30
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        accel-speed 0.5
+        accel-profile "flat"
+        scroll-factor 0.2
+    }
+
+    mouse {
+        accel-speed 0.0
+        accel-profile "flat"
+    }
+
+    warp-mouse-to-focus
+    focus-follows-mouse max-scroll-amount="0%"
+    mod-key "Alt"
+}
+
+output "eDP-1" {
+    mode "2560x1440@165.003"
+    variable-refresh-rate
+    hot-corners { off; }
+    scale 1.33
+}
+
+output "DP-2" {
+    mode "1920x1080@165.000"
+    variable-refresh-rate
+    hot-corners { off; }
+}
+
+layout {
+    gaps 12
+    center-focused-column "never"
+    default-column-width { proportion 0.5; }
+    background-color "transparent"
+
+    preset-column-widths {
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.33333
+    }
+
+    preset-window-heights { 
+        proportion 0.5
+        proportion 1.0
+    }
+
+    focus-ring {
+        width 1
+        active-color "#8888aa"
+        inactive-color "#222222"
+    }
+
+    shadow {
+        on
+        draw-behind-window true
+        softness 15 
+        spread 2
+        offset x=0 y=5
+        color "#0007"
+    }
+}
+
+overview {
+    backdrop-color "#110d14"
+}
+
+// Work around WezTerm's initial configure bug
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id="rog-control-center"
+    match app-id="org.pulseaudio.pavucontrol"
+    open-floating true
+}
+
+layer-rule {
+    match namespace="awww-daemonoverview"
+    place-within-backdrop true
+}

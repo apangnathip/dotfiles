@@ -1,3 +1,7 @@
+if [ -z "$TMUX" ]; then
+  exec tmux new-session -t ground
+fi
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -32,20 +36,25 @@ setopt no_case_glob
 setopt no_case_match
 setopt globdots
 
+alias sv=sudoedit
 alias v=nvim
 alias vim=nvim
 alias ls="eza -F always"
 alias la="eza -aF always"
-alias ll="eza -alF always --no-user --git --icons=always --time-style=relative"
+alias ll="eza -alF always --git --icons=always --time-style=relative"
 alias lt="eza -TF always --level=2"
 alias d="dirs -v | tail -n +2"
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
-bindkey -v
+bindkey -e
 bindkey -r "^[p"
 bindkey -r "^[P"
 bindkey -r "^[n"
 bindkey -r "^[N"
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[3~" delete-char
+bindkey "^[[5~" beginning-of-history
+bindkey "^[[6~" end-of-history
 
 tmux-sessionizer() { "$XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh"; zle reset-prompt; }
 zle -N tmux-sessionizer
@@ -77,8 +86,6 @@ cursor_mode() {
     zle -N zle-keymap-select
     zle -N zle-line-init
 }
-
-cursor_mode
 
 source <(fzf --zsh)
 source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme; [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
