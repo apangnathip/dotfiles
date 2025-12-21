@@ -1,0 +1,34 @@
+# modified version of trueNAHO/grub2-theme-vimix-very-dark-blue
+
+title-text: ""
+desktop-color: "#110d14"
+terminal-font: "lemon Regular 30"
+terminal-left: "0"
+terminal-top: "0"
+terminal-width: "100%"
+terminal-height: "100%"
+terminal-border: "0"
+
++ boot_menu {
+  left = 25%
+  top = 40%
+  width = 50%
+  height = 25%
+  item_font = "lemon Regular 30"
+  item_color = "#cccccc"
+  selected_item_color = "#ffffff"
+  item_height = 24 
+  item_icon_space = 0
+  selected_item_pixmap_style = "select_*.png"
+}
+
++ label {
+  top = 83%
+  left = 0%
+  width = 100%
+  align = "center"
+  id = "__timeout__"
+  text = "Booting in %d seconds"
+  color = "#cccccc"
+  font = "lemon Regular 30"
+}
