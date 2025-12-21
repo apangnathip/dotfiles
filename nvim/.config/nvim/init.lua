@@ -217,7 +217,15 @@ end)
 -- }}}
 
 -- {{{ LSP
-vim.lsp.enable({ "lua_ls", "bashls", "basedpyright", "clangd", "biome", "fish_lsp" })
+vim.lsp.enable({
+	"lua_ls",
+	"bashls",
+	"basedpyright",
+	"clangd",
+	"biome",
+	"fish_lsp",
+})
+
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
@@ -265,20 +273,23 @@ require("conform").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>gf", require("conform").format)
+vim.keymap.set("n", "gf", require("conform").format)
 -- }}}
 
 -- {{{ Theme
 require("rose-pine").setup({
 	styles = {
-		transparency = false,
+		transparency = true,
 		italic = false,
 		bold = false,
 	},
 	highlight_groups = {
-		Normal = { bg = "#1b1421" },
-		NormalNC = { bg = "#1b1421" },
-		NormalFloat = { bg = "#1b1421" },
+		-- Normal = { bg = "#1b1421" },
+		-- NormalNC = { bg = "#1b1421" },
+		-- NormalFloat = { bg = "#1b1421" },
+		Normal = { bg = "none" },
+		NormalNC = { bg = "none" },
+		NormalFloat = { bg = "none" },
 		FloatBorder = { bg = "" },
 		Folded = { bg = "#281E30" },
 		CursorLine = { bg = "#1f1726" },
@@ -376,27 +387,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = al_au,
 	pattern = "*",
 	command = "setlocal formatoptions-=cro",
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	group = al_au,
-	pattern = "cpp",
-	callback = function()
-		vim.cmd("set tabstop=4 shiftwidth=4")
-		vim.cmd("let b:dispatch = 'cmake --build build'")
-	end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	group = al_au,
-	pattern = "python",
-	command = "let b:dispatch = 'python3 %'",
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	group = al_au,
-	pattern = "python",
-	command = "let b:dispatch = 'python3 %'",
 })
 -- }}}
 
