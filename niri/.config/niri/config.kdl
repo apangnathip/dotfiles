@@ -1,5 +1,4 @@
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "awww-daemon" 
-spawn-sh-at-startup "~/.config/scripts/restore-wal.sh"
 spawn-at-startup "wal" "-Rest"
 
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "kanshi" 
@@ -7,6 +6,7 @@ spawn-at-startup "uwsm" "app" "-s" "s" "--" "waybar"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "rog-control-center" 
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "clipse" "-listen" 
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "/usr/lib/polkit-kde-authentication-agent-1"
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "quadcastrgb" "solid" "#FFFFFF"
 
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd

@@ -4,8 +4,8 @@
 */
 
 * {
-  --background-surface-higher: color-mix(in srgb, {color0}55, {color1}55 15%) !important;   
-  --background-surface-high: color-mix(in srgb, {color0}55, {color1}55 10%) !important;    
+  --background-surface-higher: color-mix(in srgb, {color0}EE, {color1}EE 15%) !important;   
+  --background-surface-high: color-mix(in srgb, {color0}EE, {color1}EE 10%) !important;    
   --background-base-low: color-mix(in srgb, {color0}55, {color1}55 10%) !important;        
   --background-base-lower: color-mix(in srgb, {color0}55, {color1}55 5%) !important;        
   --background-base-lowest: {color0}44 !important;        
