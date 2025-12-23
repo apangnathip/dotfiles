@@ -9,8 +9,8 @@ config.load_autoconfig()
 theme.setup(c)
 
 c.auto_save.session = True
-
 c.scrolling.smooth = True
+c.new_instance_open_target = "tab-silent"
 
 c.tabs.title.format = "{audio}{current_title}"
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 9, "right": 9}
