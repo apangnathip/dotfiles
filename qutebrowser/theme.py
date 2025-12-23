@@ -1,232 +1,173 @@
 # pyright: basic
-# modified catpuccin, will change to base16/pywal later, maybe, probably
+# modified catpuccin to pywal
+
+
+def hex_to_rgb(color):
+    return tuple(bytes.fromhex(color.strip("#")))
+
+
+def rgb_to_hex(color):
+    return "#%02x%02x%02x" % (*color,)
+
+
+def lighten(color, amount):
+    ctup = hex_to_rgb(color)
+    nctup = []
+    for col in ctup:
+        nctup.append(int(col + (255 - col) * (amount / 100)))
+    return rgb_to_hex(nctup)
+
+
+def darken(color, amount):
+    ctup = hex_to_rgb(color)
+    nctup = []
+    for col in ctup:
+        nctup.append(int(col * (1 - (amount / 100))))
+    return rgb_to_hex(nctup)
+
+
+def blend_color(color, color2):
+    r1, g1, b1 = hex_to_rgb(color)
+    r2, g2, b2 = hex_to_rgb(color2)
+    r3 = int(0.5 * r1 + 0.5 * r2)
+    g3 = int(0.5 * g1 + 0.5 * g2)
+    b3 = int(0.5 * b1 + 0.5 * b2)
+    return rgb_to_hex((r3, g3, b3))
+
+
+def get_pywal_colors():
+    colors = {}
+    with open("/home/alpan/.cache/wal/colors", "r") as file:
+        for i, line in enumerate(file):
+            colors[i] = line.strip()
+    colors["bg"] = colors[0]
+    colors["fg"] = colors[15]
+    colors["bg+3"] = lighten(colors["bg"], 20)
+    colors["bg+2"] = lighten(colors["bg"], 10)
+    colors["bg+1.5"] = lighten(colors["bg"], 7)
+    colors["bg+1"] = lighten(colors["bg"], 5)
+    colors["fg-1"] = darken(colors["fg"], 10)
+    colors["fg-2"] = darken(colors["fg"], 20)
+    colors["fg-3"] = darken(colors["fg"], 30)
+    colors["red"] = blend_color("#AA0000", colors[6])
+    colors["green"] = blend_color("#00AA00", colors[6])
+    colors["blue"] = blend_color("#0000AA", colors[6])
+    colors["yellow"] = blend_color("#AAAA00", colors[6])
+    return colors
+
+
+get_pywal_colors()
+
 
 def setup(c):
-    palette = {
-        "rosewater": "#f5e0dc",
-        "flamingo": "#f2cdcd",
-        "pink": "#f5c2e7",
-        "mauve": "#cba6f7",
-        "red": "#f38ba8",
-        "maroon": "#eba0ac",
-        "peach": "#fab387",
-        "yellow": "#f9e2af",
-        "green": "#a6e3a1",
-        "teal": "#94e2d5",
-        "sky": "#89dceb",
-        "sapphire": "#74c7ec",
-        "blue": "#89b4fa",
-        "lavender": "#b4befe",
-        "text": "#cdd6f4",
-        "subtext1": "#bac2de",
-        "subtext0": "#a6adc8",
-        "overlay2": "#9399b2",
-        "overlay1": "#7f849c",
-        "overlay0": "#6c7086",
-        "surface2": "#585b70",
-        "surface1": "#45475a",
-        "surface0": "#313244",
-        "base": "#1e1e2e",
-        "mantle": "#181825",
-        "crust": "#11111b",
-    }
+    colors = get_pywal_colors()
 
-    ## Background color of the completion widget category headers.
-    c.colors.completion.category.bg = palette["base"]
-    ## Bottom border color of the completion widget category headers.
-    c.colors.completion.category.border.bottom = palette["mantle"]
-    ## Top border color of the completion widget category headers.
-    c.colors.completion.category.border.top = palette["overlay2"]
-    ## Foreground color of completion widget category headers.
-    c.colors.completion.category.fg = palette["green"]
-    ## Background color of the completion widget for even and odd rows.
-    c.colors.completion.even.bg = palette["mantle"]
+    # completion menu, e.g. when opening links
+    c.colors.completion.category.bg = colors["bg+1"]
+    c.colors.completion.category.border.bottom = colors["bg"]
+    c.colors.completion.category.border.top = colors["bg+1"]
+    c.colors.completion.category.fg = colors[1]
+    c.colors.completion.even.bg = colors["bg"]
     c.colors.completion.odd.bg = c.colors.completion.even.bg
-    ## Text color of the completion widget.
-    c.colors.completion.fg = palette["subtext0"]
+    c.colors.completion.fg = colors["fg-1"]
 
-    ## Background color of the selected completion item.
-    c.colors.completion.item.selected.bg = palette["surface2"]
-    ## Bottom border color of the selected completion item.
-    c.colors.completion.item.selected.border.bottom = palette["surface2"]
-    ## Top border color of the completion widget category headers.
-    c.colors.completion.item.selected.border.top = palette["surface2"]
-    ## Foreground color of the selected completion item.
-    c.colors.completion.item.selected.fg = palette["text"]
-    ## Foreground color of the selected completion item.
-    c.colors.completion.item.selected.match.fg = palette["rosewater"]
-    ## Foreground color of the matched text in the completion.
-    c.colors.completion.match.fg = palette["text"]
+    c.colors.completion.item.selected.bg = colors[7]
+    c.colors.completion.item.selected.border.bottom = colors[7]
+    c.colors.completion.item.selected.border.top = c.colors.completion.item.selected.bg
+    c.colors.completion.item.selected.fg = colors["bg+1"]
+    c.colors.completion.item.selected.match.fg = colors[2]
+    c.colors.completion.match.fg = colors[2]
 
-    ## Color of the scrollbar in completion view
-    c.colors.completion.scrollbar.bg = palette["crust"]
-    ## Color of the scrollbar handle in completion view.
-    c.colors.completion.scrollbar.fg = palette["surface2"]
+    c.colors.completion.scrollbar.bg = colors["bg"]
+    c.colors.completion.scrollbar.fg = colors["fg-2"]
 
-    c.colors.downloads.bar.bg = palette["base"]
-    c.colors.downloads.error.bg = palette["base"]
-    c.colors.downloads.start.bg = palette["base"]
-    c.colors.downloads.stop.bg = palette["base"]
+    c.colors.downloads.bar.bg = colors["bg"]
+    c.colors.downloads.error.bg = colors["bg"]
+    c.colors.downloads.start.bg = colors["bg"]
+    c.colors.downloads.stop.bg = colors["bg"]
 
-    c.colors.downloads.error.fg = palette["red"]
-    c.colors.downloads.start.fg = palette["blue"]
-    c.colors.downloads.stop.fg = palette["green"]
+    c.colors.downloads.error.fg = colors["red"]
+    c.colors.downloads.start.fg = colors["blue"]
+    c.colors.downloads.stop.fg = colors["green"]
     c.colors.downloads.system.fg = "none"
     c.colors.downloads.system.bg = "none"
 
-    ## Background color for hints. Note that you can use a `rgba(...)` value
-    ## for transparency.
-    c.colors.hints.bg = palette["peach"]
+    # link hints
+    c.colors.hints.bg = colors[2]
+    c.colors.hints.fg = colors["bg"]
+    c.colors.hints.match.fg = colors[6]
+    c.colors.keyhint.bg = colors["bg"]
+    c.colors.keyhint.fg = colors["fg"]
+    c.colors.keyhint.suffix.fg = colors["fg-2"]
+    c.hints.border = f"1px solid {colors['bg']}"
 
-    ## Font color for hints.
-    c.colors.hints.fg = palette["mantle"]
+    c.colors.messages.error.bg = colors["bg+1"]
+    c.colors.messages.info.bg = colors["bg+1"]
+    c.colors.messages.warning.bg = colors["bg+1"]
+    c.colors.messages.error.border = colors["bg+1"]
+    c.colors.messages.info.border = colors["bg+1"]
+    c.colors.messages.warning.border = colors["bg+1"]
 
-    ## Hints
-    c.hints.border = "1px solid " + palette["mantle"]
+    c.colors.messages.error.fg = colors["red"]
+    c.colors.messages.info.fg = colors["fg"]
+    c.colors.messages.warning.fg = colors["yellow"]
 
-    ## Font color for the matched part of hints.
-    c.colors.hints.match.fg = palette["subtext1"]
+    c.colors.prompts.bg = colors["bg"]
+    c.colors.prompts.border = "1px solid " + colors[7]
+    c.colors.prompts.fg = colors[15]
 
-    ## Background color of the keyhint widget.
-    c.colors.keyhint.bg = palette["mantle"]
+    c.colors.prompts.selected.bg = colors[7]
+    c.colors.prompts.selected.fg = colors["bg+1"]
 
-    ## Text color for the keyhint widget.
-    c.colors.keyhint.fg = palette["text"]
+    c.colors.statusbar.normal.bg = colors["bg"]
+    c.colors.statusbar.insert.bg = colors["bg+3"]
+    c.colors.statusbar.command.bg = colors["bg"]
+    c.colors.statusbar.caret.bg = colors["bg"]
+    c.colors.statusbar.caret.selection.bg = colors["bg"]
 
-    ## Highlight color for keys to complete the current keychain.
-    c.colors.keyhint.suffix.fg = palette["subtext1"]
+    c.colors.statusbar.progress.bg = colors["bg"]
+    c.colors.statusbar.passthrough.bg = colors["bg"]
 
-    ## Background color of an error message.
-    c.colors.messages.error.bg = palette["overlay0"]
-    ## Background color of an info message.
-    c.colors.messages.info.bg = palette["overlay0"]
-    ## Background color of a warning message.
-    c.colors.messages.warning.bg = palette["overlay0"]
+    c.colors.statusbar.normal.fg = colors[15]
+    c.colors.statusbar.insert.fg = colors[6]
+    c.colors.statusbar.command.fg = colors[15]
+    c.colors.statusbar.passthrough.fg = colors[4]
+    c.colors.statusbar.caret.fg = colors[4]
+    c.colors.statusbar.caret.selection.fg = colors[4]
 
-    ## Border color of an error message.
-    c.colors.messages.error.border = palette["mantle"]
-    ## Border color of an info message.
-    c.colors.messages.info.border = palette["mantle"]
-    ## Border color of a warning message.
-    c.colors.messages.warning.border = palette["mantle"]
+    c.colors.statusbar.url.error.fg = colors["red"]
+    c.colors.statusbar.url.fg = colors[15]
+    c.colors.statusbar.url.hover.fg = colors[6]
+    c.colors.statusbar.url.success.http.fg = colors["blue"]
+    c.colors.statusbar.url.success.https.fg = colors["green"]
+    c.colors.statusbar.url.warn.fg = colors["yellow"]
 
-    ## Foreground color of an error message.
-    c.colors.messages.error.fg = palette["red"]
-    ## Foreground color an info message.
-    c.colors.messages.info.fg = palette["text"]
-    ## Foreground color a warning message.
-    c.colors.messages.warning.fg = palette["peach"]
+    c.colors.statusbar.private.bg = "black"
+    c.colors.statusbar.private.fg = "white"
+    c.colors.statusbar.command.private.bg = "black"
+    c.colors.statusbar.command.private.fg = "white"
 
-    ## Background color for prompts.
-    c.colors.prompts.bg = palette["mantle"]
+    c.colors.tabs.bar.bg = colors["bg"]
+    c.colors.tabs.even.bg = colors["bg+1.5"]
+    c.colors.tabs.odd.bg = colors["bg+1"]
 
-    # ## Border used around UI elements in prompts.
-    c.colors.prompts.border = "1px solid " + palette["overlay0"]
+    c.colors.tabs.even.fg = colors["fg-3"]
+    c.colors.tabs.odd.fg = colors["fg-3"]
 
-    ## Foreground color for prompts.
-    c.colors.prompts.fg = palette["text"]
-
-    ## Background color for the selected item in filename prompts.
-    c.colors.prompts.selected.bg = palette["surface2"]
-
-    ## Background color for the selected item in filename prompts.
-    c.colors.prompts.selected.fg = palette["rosewater"]
-    # }}}
-
-    ## Background color of the statusbar.
-    c.colors.statusbar.normal.bg = palette["base"]
-    ## Background color of the statusbar in insert mode.
-    c.colors.statusbar.insert.bg = palette["crust"]
-    ## Background color of the statusbar in command mode.
-    c.colors.statusbar.command.bg = palette["base"]
-    ## Background color of the statusbar in caret mode.
-    c.colors.statusbar.caret.bg = palette["base"]
-    ## Background color of the statusbar in caret mode with a selection.
-    c.colors.statusbar.caret.selection.bg = palette["base"]
-
-    ## Background color of the progress bar.
-    c.colors.statusbar.progress.bg = palette["base"]
-    ## Background color of the statusbar in passthrough mode.
-    c.colors.statusbar.passthrough.bg = palette["base"]
-
-    ## Foreground color of the statusbar.
-    c.colors.statusbar.normal.fg = palette["text"]
-    ## Foreground color of the statusbar in insert mode.
-    c.colors.statusbar.insert.fg = palette["rosewater"]
-    ## Foreground color of the statusbar in command mode.
-    c.colors.statusbar.command.fg = palette["text"]
-    ## Foreground color of the statusbar in passthrough mode.
-    c.colors.statusbar.passthrough.fg = palette["peach"]
-    ## Foreground color of the statusbar in caret mode.
-    c.colors.statusbar.caret.fg = palette["peach"]
-    ## Foreground color of the statusbar in caret mode with a selection.
-    c.colors.statusbar.caret.selection.fg = palette["peach"]
-
-    ## Foreground color of the URL in the statusbar on error.
-    c.colors.statusbar.url.error.fg = palette["red"]
-
-    ## Default foreground color of the URL in the statusbar.
-    c.colors.statusbar.url.fg = palette["text"]
-
-    ## Foreground color of the URL in the statusbar for hovered links.
-    c.colors.statusbar.url.hover.fg = palette["sky"]
-
-    ## Foreground color of the URL in the statusbar on successful load
-    c.colors.statusbar.url.success.http.fg = palette["teal"]
-
-    ## Foreground color of the URL in the statusbar on successful load
-    c.colors.statusbar.url.success.https.fg = palette["green"]
-
-    ## Foreground color of the URL in the statusbar when there's a warning.
-    c.colors.statusbar.url.warn.fg = palette["yellow"]
-
-    ## PRIVATE MODE COLORS
-    ## Background color of the statusbar in private browsing mode.
-    c.colors.statusbar.private.bg = palette["mantle"]
-    ## Foreground color of the statusbar in private browsing mode.
-    c.colors.statusbar.private.fg = palette["subtext1"]
-    ## Background color of the statusbar in private browsing + command mode.
-    c.colors.statusbar.command.private.bg = palette["base"]
-    ## Foreground color of the statusbar in private browsing + command mode.
-    c.colors.statusbar.command.private.fg = palette["subtext1"]
-
-    ## Background color of the tab bar.
-    c.colors.tabs.bar.bg = palette["crust"]
-    ## Background color of unselected even tabs.
-    c.colors.tabs.even.bg = palette["surface2"]
-    ## Background color of unselected odd tabs.
-    c.colors.tabs.odd.bg = palette["surface1"]
-
-    ## Foreground color of unselected even tabs.
-    c.colors.tabs.even.fg = palette["overlay2"]
-    ## Foreground color of unselected odd tabs.
-    c.colors.tabs.odd.fg = palette["overlay2"]
-
-    ## Color for the tab indicator on errors.
-    c.colors.tabs.indicator.error = palette["red"]
-    ## Color gradient interpolation system for the tab indicator.
-    ## Valid values:
-    ##	 - rgb: Interpolate in the RGB color system.
-    ##	 - hsv: Interpolate in the HSV color system.
-    ##	 - hsl: Interpolate in the HSL color system.
-    ##	 - none: Don't show a gradient.
+    c.colors.tabs.indicator.error = colors["red"]
     c.colors.tabs.indicator.system = "none"
 
-    # ## Background color of selected even tabs.
-    c.colors.tabs.selected.even.bg = palette["base"]
-    # ## Background color of selected odd tabs.
-    c.colors.tabs.selected.odd.bg = palette["base"]
+    c.colors.tabs.selected.even.bg = colors["bg"]
+    c.colors.tabs.selected.odd.bg = colors["bg"]
 
-    # ## Foreground color of selected even tabs.
-    c.colors.tabs.selected.even.fg = palette["text"]
-    # ## Foreground color of selected odd tabs.
-    c.colors.tabs.selected.odd.fg = palette["text"]
+    c.colors.tabs.selected.even.fg = colors["fg"]
+    c.colors.tabs.selected.odd.fg = colors["fg"]
 
-    c.colors.contextmenu.menu.bg = palette["base"]
-    c.colors.contextmenu.menu.fg = palette["text"]
+    c.colors.contextmenu.menu.bg = colors["bg"]
+    c.colors.contextmenu.menu.fg = colors["fg"]
 
-    c.colors.contextmenu.disabled.bg = palette["mantle"]
-    c.colors.contextmenu.disabled.fg = palette["overlay0"]
+    c.colors.contextmenu.disabled.bg = colors["bg+1"]
+    c.colors.contextmenu.disabled.fg = colors["fg-3"]
 
-    c.colors.contextmenu.selected.bg = palette["overlay0"]
-    c.colors.contextmenu.selected.fg = palette["rosewater"]
+    c.colors.contextmenu.selected.bg = colors["fg-3"]
+    c.colors.contextmenu.selected.fg = colors["bg"]

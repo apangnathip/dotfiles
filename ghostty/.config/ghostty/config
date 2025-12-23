@@ -1,9 +1,10 @@
 command = zsh 
 shell-integration = zsh 
-background = #1b1421
 window-vsync = false
 window-padding-x = 4
 window-padding-y = 4,0
-background-opacity = 0.9
 confirm-close-surface = false
-theme = Rose Pine
+app-notifications = no-config-reload
+
+background-opacity = 0.85
+theme = "/home/alpan/.cache/wal/ghostty.conf"

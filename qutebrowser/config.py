@@ -22,6 +22,7 @@ c.fonts.default_size = "10pt"
 
 c.content.javascript.clipboard = "access"
 c.content.blocking.enabled = True
+c.colors.webpage.preferred_color_scheme = "dark"
 
 config.bind("J", "tab-next")
 config.bind("K", "tab-prev")
@@ -45,12 +46,12 @@ config.bind("<Ctrl-7>", "tab-focus 7")
 config.bind("<Ctrl-8>", "tab-focus 8")
 config.bind("<Ctrl-9>", "tab-focus -1")
 config.bind("<Ctrl-m>", "tab-mute")
-config.bind('<Ctrl-a>', 'fake-key <Home>', 'insert')
-config.bind('<Ctrl-e>', 'fake-key <End>', 'insert')
-config.bind('<Ctrl-b>', 'fake-key <Left>', 'insert')
-config.bind('<Ctrl-f>', 'fake-key <Right>', 'insert')
-config.bind('<Mod1-b>', 'fake-key <Ctrl-Left>', 'insert')
-config.bind('<Mod1-f>', 'fake-key <Ctrl-Right>', 'insert')
-config.bind('<Ctrl-p>', 'fake-key <Up>', 'insert')
-config.bind('<Ctrl-n>', 'fake-key <Down>', 'insert')
-config.bind('<Ctrl-w>', 'fake-key <Ctrl-Backspace>', 'insert')
+config.bind("<Ctrl-a>", "fake-key <Home>", "insert")
+config.bind("<Ctrl-e>", "fake-key <End>", "insert")
+config.bind("<Ctrl-b>", "fake-key <Left>", "insert")
+config.bind("<Ctrl-f>", "fake-key <Right>", "insert")
+config.bind("<Mod1-b>", "fake-key <Ctrl-Left>", "insert")
+config.bind("<Mod1-f>", "fake-key <Ctrl-Right>", "insert")
+config.bind("<Ctrl-p>", "fake-key <Up>", "insert")
+config.bind("<Ctrl-n>", "fake-key <Down>", "insert")
+config.bind("<Ctrl-w>", "fake-key <Ctrl-Backspace>", "insert")

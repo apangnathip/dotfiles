@@ -12,7 +12,7 @@ vim.o.relativenumber = true
 vim.o.number = true
 vim.o.wrap = false
 vim.o.scrolloff = 8
-vim.o.cursorline = true
+vim.o.cursorline = false 
 vim.o.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
 vim.o.signcolumn = "yes:1"
 vim.o.ignorecase = true
@@ -43,8 +43,10 @@ vim.keymap.set("n", "<leader>p", "<cmd>Oil<cr>")
 vim.keymap.set("n", "<leader>q", "q", { noremap = true })
 vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<cr>")
 vim.keymap.set("n", "gwd", vim.diagnostic.open_float)
-vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "grn", vim.lsp.buf.rename)
+vim.keymap.set("n", "gzo", "zo")
+vim.keymap.set("n", "gzc", "zc")
+vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 vim.keymap.set({ "n", "v" }, "<leader>c", '"_c')
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
@@ -82,7 +84,7 @@ require("mason").setup()
 require("colorizer").setup({
 	user_default_options = {
 		mode = "background",
-		css = true,
+    css = true,
 	},
 })
 
@@ -149,6 +151,12 @@ end)
 vim.keymap.set({ "x", "o" }, "il", function()
 	require("nvim-treesitter-textobjects.select").select_textobject("@loop.inner", "textobjects")
 end)
+vim.keymap.set({ "x", "o" }, "=r", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@assignment.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "=l", function()
+	require("nvim-treesitter-textobjects.select").select_textobject("@assignment.inner", "textobjects")
+end)
 -- }}}
 
 -- {{{ Navigation
@@ -199,7 +207,7 @@ vim.keymap.set("n", "<leader>sh", fzf.helptags)
 vim.keymap.set("n", "<leader>ss", fzf.builtin)
 vim.keymap.set("n", "<leader>sm", fzf.man_pages)
 
-vim.keymap.set({ "n", "x", "o" }, "<cr>", function()
+vim.keymap.set({ "n", "x", "o" }, "z", function()
 	require("flash").jump()
 end)
 vim.keymap.set({ "n", "x", "o" }, "<s-cr>", function()
@@ -277,6 +285,7 @@ vim.keymap.set("n", "gf", require("conform").format)
 -- }}}
 
 -- {{{ Theme
+
 require("rose-pine").setup({
 	styles = {
 		transparency = true,
@@ -284,14 +293,11 @@ require("rose-pine").setup({
 		bold = false,
 	},
 	highlight_groups = {
-		-- Normal = { bg = "#1b1421" },
-		-- NormalNC = { bg = "#1b1421" },
-		-- NormalFloat = { bg = "#1b1421" },
 		Normal = { bg = "none" },
 		NormalNC = { bg = "none" },
 		NormalFloat = { bg = "none" },
-		FloatBorder = { bg = "" },
-		Folded = { bg = "#281E30" },
+		FloatBorder = { bg = "none" },
+		Folded = { bg = "none" },
 		CursorLine = { bg = "#1f1726" },
 		CursorLineNr = { fg = "white" },
 		SignColumn = { bg = "none" },
@@ -300,17 +306,8 @@ require("rose-pine").setup({
 })
 vim.cmd.colorscheme("rose-pine-moon")
 
-local theme = require("lualine.themes.auto")
-theme.normal.a.bg = "#bebcd1"
-theme.normal.a.fg = "#29273c"
-theme.normal.b.bg = "#908caa"
-theme.normal.b.fg = "#29273c"
-theme.normal.c.bg = "#281e30"
-theme.insert.c.bg = "#281e30"
-theme.visual.c.bg = "#281e30"
-theme.replace.c.bg = "#281e30"
-theme.command.c.bg = "#281e30"
-theme.inactive.c.bg = "#281e30"
+local theme = require("lualine.themes.pywal")
+theme.normal.c.bg = "none"
 
 require("lualine").setup({
 	options = {
@@ -328,18 +325,18 @@ require("lualine").setup({
 	},
 })
 
-local hooks = require("ibl.hooks")
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-	vim.api.nvim_set_hl(0, "IndentHL", { fg = "#22192a" })
-end)
-require("ibl").setup({
-	scope = { enabled = false },
-	indent = {
-		highlight = {
-			"IndentHL",
-		},
-	},
-})
+-- local hooks = require("ibl.hooks")
+-- hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+-- 	vim.api.nvim_set_hl(0, "IndentHL", { fg = "#22192a" })
+-- end)
+-- require("ibl").setup({
+-- 	scope = { enabled = false },
+-- 	indent = {
+-- 		highlight = {
+-- 			"IndentHL",
+-- 		},
+-- 	},
+-- })
 -- }}}
 
 -- {{{ Autocmds

@@ -1,0 +1,39 @@
+/**
+ * @name pywal
+ * @author alpan
+*/
+
+* {
+  --background-surface-higher: color-mix(in srgb, {color0}55, {color1}55 15%) !important;   
+  --background-surface-high: color-mix(in srgb, {color0}55, {color1}55 10%) !important;    
+  --background-base-low: color-mix(in srgb, {color0}55, {color1}55 10%) !important;        
+  --background-base-lower: color-mix(in srgb, {color0}55, {color1}55 5%) !important;        
+  --background-base-lowest: {color0}44 !important;        
+  --chat-background-default: color-mix(in srgb, {color0}, {color1} 10%);
+  --channels-default: color-mix(in srgb, {color8}, #999999 55%) !important;
+  --channel-icon: color-mix(in srgb, {color8}, #999999 55%) !important;
+  --scrollbar-auto-thumb: {color8};
+  --scrollbar-thin-thumb: {color8};
+  --user-profile-overlay-background: color-mix(in srgb, {color0}, {color1} 5%) !important;       
+  --custom-status-bubble-background: color-mix(in srgb, {color0}, {color1} 5%) !important;      
+  --card-background-default: color-mix(in srgb, {color0}, {color1} 5%) !important;
+  --badge-background-default: {color1};
+
+  --brand-500: {color1} !important;
+  --brand-400: {color14};
+  --background-brand: {color1};
+  --text-brand: {color14};
+  --blurple-50: {color1};
+
+  --control-primary-background-default: {color1};
+  --checkbox-background-selected-default: {color1};
+  --checkbox-border-default: {color1};
+  --custom-input-focus-border-color: {color1} !important;
+  --interactive-background-selected: color-mix(in srgb, {color0}, {color1} 15%) !important;       
+  --interactive-background-hover: color-mix(in srgb, {color0}, {color1} 10%) !important;       
+  --interactive-background-active: color-mix(in srgb, {color0}, {color1} 15%) !important;       
+}
+
+._3f21e80f8677ec40-container {
+  background-color: {color1} !important;
+}
