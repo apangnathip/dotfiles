@@ -4,7 +4,7 @@ environment {
 
 spawn-at-startup "uwsm" "app" "--" "qs" "-c" "noctalia-shell"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "kanshi" 
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "rog-control-center" 
+spawn-at-startup "uwsm" "app" "-s" "s" "--" "/usr/lib/polkit-kde-authentication-agent-1 " 
 
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
@@ -91,6 +91,8 @@ layer-rule {
 binds {
     Super+Return { spawn "app2unit" "--" "ghostty"; }
     Super+B { spawn "app2unit" "--" "qutebrowser"; }
+    Super+D { spawn "app2unit" "--" "vesktop"; }
+    Super+E { spawn "app2unit" "--" "nautilus"; }
     Mod+Shift+C { spawn "hyprpicker" "-a"; }
 
     Super+Alt+L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }

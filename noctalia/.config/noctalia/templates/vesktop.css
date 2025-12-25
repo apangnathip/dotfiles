@@ -88,8 +88,8 @@ body {
 /* background and dark colors */
 --bg-1: {{colors.surface_container_lowest.default.hex}}; /* dark buttons when clicked */
 --bg-2: {{colors.surface_container_low.default.hex}}; /* dark buttons */
---bg-3: {{colors.surface_container.default.hex}}ee; /* spacing, secondary elements */
---bg-4: {{colors.surface.default.hex}}66; /* main background color */
+--bg-3: {{colors.surface_container.default.hex}}aa; /* spacing, secondary elements */
+--bg-4: {{colors.surface.default.hex}}cc; /* main background color */
 --hover: {{colors.surface_container_high.default.hex}}20; /* channels and buttons when hovered */
 --active: {{colors.surface_container_highest.default.hex}}40; /* channels and buttons when clicked or selected */
 --active-2: {{colors.surface.default.hex}}30; /* extra state for transparent buttons */

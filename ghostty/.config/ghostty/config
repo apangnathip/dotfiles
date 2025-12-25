@@ -1,10 +1,10 @@
 command = zsh 
 shell-integration = zsh 
 window-vsync = false
-window-padding-x = 4
-window-padding-y = 4,0
+window-padding-x = 8
+window-padding-y = 8,0
 confirm-close-surface = false
 app-notifications = no-config-reload
 
-background-opacity = 0.85
+background-opacity = 0.8
 theme = "noctalia"
