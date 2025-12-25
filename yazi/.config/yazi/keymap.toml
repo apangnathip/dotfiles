@@ -1,4 +1,0 @@
-[mgr]
-append_keymap = [
-  { on = "<C-o>", run = "shell -- ghostty", desc = "Open current directory in terminal" }
-]

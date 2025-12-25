@@ -36,6 +36,7 @@ setopt no_case_glob
 setopt no_case_match
 setopt globdots
 
+alias cat=bat
 alias sv=sudoedit
 alias v=nvim
 alias vim=nvim
