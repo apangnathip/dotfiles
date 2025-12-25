@@ -12,7 +12,7 @@ vim.o.relativenumber = true
 vim.o.number = true
 vim.o.wrap = false
 vim.o.scrolloff = 8
-vim.o.cursorline = false 
+vim.o.cursorline = false
 vim.o.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
 vim.o.signcolumn = "yes:1"
 vim.o.ignorecase = true
@@ -84,7 +84,7 @@ require("mason").setup()
 require("colorizer").setup({
 	user_default_options = {
 		mode = "background",
-    css = true,
+		css = true,
 	},
 })
 
@@ -232,6 +232,7 @@ vim.lsp.enable({
 	"clangd",
 	"biome",
 	"fish_lsp",
+	"qmlls",
 })
 
 vim.lsp.config("lua_ls", {
@@ -306,8 +307,7 @@ require("rose-pine").setup({
 })
 vim.cmd.colorscheme("rose-pine-moon")
 
-local theme = require("lualine.themes.pywal")
-theme.normal.c.bg = "none"
+local theme = require("lualine.themes.matugen")
 
 require("lualine").setup({
 	options = {
@@ -323,6 +323,7 @@ require("lualine").setup({
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
+	extensions = { "quickfix", "fugitive", "man", "oil" },
 })
 
 -- local hooks = require("ibl.hooks")
@@ -384,6 +385,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = al_au,
 	pattern = "*",
 	command = "setlocal formatoptions-=cro",
+})
+
+vim.api.nvim_create_autocmd("Signal", {
+  pattern = "SIGUSR1",
+  group = al_au,
+  callback = function ()
+    require("lualine").setup({options={theme="matugen"}})
+  end
 })
 -- }}}
 

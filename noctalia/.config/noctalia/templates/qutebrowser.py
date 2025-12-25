@@ -1,0 +1,102 @@
+#pyright: basic 
+
+def setup(c):
+    c.colors.statusbar.normal.bg = "{{colors.background.default.hex}}"
+    c.colors.statusbar.normal.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.statusbar.insert.bg = "{{colors.on_primary.default.hex}}"
+    c.colors.statusbar.insert.fg = "{{colors.primary.default.hex}}"
+    c.colors.statusbar.command.bg = "{{colors.on_secondary.default.hex}}"
+    c.colors.statusbar.command.fg = "{{colors.secondary.default.hex}}"
+    c.colors.statusbar.caret.bg = "{{colors.on_tertiary.default.hex}}"
+    c.colors.statusbar.caret.fg = "{{colors.tertiary.default.hex}}"
+    c.colors.statusbar.caret.selection.bg = "{{colors.tertiary_container.default.hex}}"
+    c.colors.statusbar.caret.selection.fg = "{{colors.tertiary.default.hex}}"
+    c.colors.statusbar.passthrough.bg = "{{colors.surface_variant.default.hex}}"
+    c.colors.statusbar.passthrough.fg = "{{colors.outline.default.hex}}"
+    c.colors.statusbar.progress.bg = "{{colors.primary.default.hex}}"
+
+    c.colors.statusbar.url.fg = "{{colors.on_surface_variant.default.hex}}"
+    c.colors.statusbar.url.error.fg = "{{colors.on_error.default.hex}}"
+    c.colors.statusbar.url.hover.fg = "{{colors.primary.default.hex}}"
+    c.colors.statusbar.url.success.http.fg = "{{colors.outline.default.hex}}"
+    c.colors.statusbar.url.success.https.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.statusbar.url.warn.fg = "{{colors.tertiary.default.hex}}"
+
+    c.colors.statusbar.private.bg = "#222232"
+    c.colors.statusbar.private.fg = "white"
+    c.colors.statusbar.command.private.bg = "#222232"
+    c.colors.statusbar.command.private.fg = "white"
+
+    c.colors.tabs.bar.bg = "{{colors.background.default.hex}}"
+    c.colors.tabs.odd.bg = "{{colors.background.default.hex}}"
+    c.colors.tabs.odd.fg = "{{colors.outline.default.hex}}"
+    c.colors.tabs.even.bg = "{{colors.background.default.hex}}"
+    c.colors.tabs.even.fg = "{{colors.outline.default.hex}}"
+
+    c.colors.tabs.selected.even.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.tabs.selected.even.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.tabs.selected.odd.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.tabs.selected.odd.fg = "{{colors.on_surface.default.hex}}"
+
+    c.colors.downloads.bar.bg = "{{colors.surface_container_lowest.default.hex}}"
+    c.colors.downloads.error.bg = "{{colors.surface_container_lowest.default.hex}}"
+    c.colors.downloads.start.bg = "{{colors.surface_container_lowest.default.hex}}"
+    c.colors.downloads.stop.bg = "{{colors.surface_container_lowest.default.hex}}"
+
+    c.colors.downloads.error.fg = "{{colors.on_error.default.hex}}"
+    c.colors.downloads.start.fg = "{{colors.primary.default.hex}}"
+    c.colors.downloads.stop.fg = "{{colors.outline.default.hex}}"
+    c.colors.downloads.system.fg = "none"
+    c.colors.downloads.system.bg = "none"
+
+    c.colors.completion.category.bg = "{{colors.on_secondary.default.hex}}"
+    c.colors.completion.category.fg = "{{colors.secondary.default.hex}}"
+    c.colors.completion.category.border.bottom = "{{colors.on_secondary.default.hex}}"
+    c.colors.completion.category.border.top = "{{colors.on_secondary.default.hex}}"
+    c.colors.completion.even.bg = "{{colors.background.default.hex}}"
+    c.colors.completion.odd.bg = "{{colors.background.default.hex}}"
+    c.colors.completion.fg = "{{colors.on_surface_variant.default.hex}}"
+
+    c.colors.completion.item.selected.bg = "{{colors.surface_container_high.default.hex}}"
+    c.colors.completion.item.selected.border.bottom = "{{colors.surface_container.default.hex}}"
+    c.colors.completion.item.selected.border.top = "{{colors.surface_container.default.hex}}"
+    c.colors.completion.item.selected.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.completion.item.selected.match.fg = "{{colors.primary.default.hex}}"
+    c.colors.completion.match.fg = "{{colors.primary.default.hex}}"
+
+    c.colors.completion.scrollbar.bg = "{{colors.background.default.hex}}"
+    c.colors.completion.scrollbar.fg = "{{colors.on_secondary.default.hex}}"
+
+    c.colors.hints.bg = "{{colors.on_primary.default.hex}}" 
+    c.colors.hints.fg = "{{colors.primary.default.hex}}"
+    c.colors.hints.match.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.keyhint.bg = "#22191a"
+    c.colors.keyhint.fg = "{{colors.on_surface.default.hex}}"
+    c.colors.keyhint.suffix.fg = "{{colors.on_surface.default.hex}}"
+    c.hints.border = "none"
+
+    c.colors.messages.error.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.info.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.warning.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.error.border = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.info.border = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.warning.border = "{{colors.surface_container.default.hex}}"
+    c.colors.messages.error.fg = "{{colors.primary.default.hex}}"
+    c.colors.messages.info.fg = "{{colors.secondary.default.hex}}"
+    c.colors.messages.warning.fg = "{{colors.tertiary.default.hex}}"
+
+    c.colors.prompts.bg = "{{colors.background.default.hex}}"
+    c.colors.prompts.border = "1px solid {{colors.outline.default.hex}}"
+    c.colors.prompts.fg = "{{colors.on_surface_variant.default.hex}}"
+
+    c.colors.prompts.selected.bg = "{{colors.surface_container_high.default.hex}}"
+    c.colors.prompts.selected.fg = "{{colors.on_surface.default.hex}}"
+
+    c.colors.contextmenu.menu.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.contextmenu.menu.fg = "{{colors.on_surface_variant.default.hex}}"
+
+    c.colors.contextmenu.disabled.bg = "{{colors.surface_container_high.default.hex}}"
+    c.colors.contextmenu.disabled.fg = "{{colors.surface_bright.default.hex}}"
+
+    c.colors.contextmenu.selected.bg = "{{colors.surface_container_highest.default.hex}}"
+    c.colors.contextmenu.selected.fg = "{{colors.on_surface.default.hex}}"

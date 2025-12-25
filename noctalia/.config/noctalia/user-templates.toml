@@ -1,0 +1,22 @@
+[config]
+
+[templates]
+
+[templates.vesktop]
+input_path = "~/.config/noctalia/templates/vesktop.css"
+output_path = "~/.config/vesktop/themes/noctalia.theme.css"
+
+[templates.tmux]
+input_path = "~/.config/noctalia/templates/tmux.conf"
+output_path = "~/.config/tmux/mutagen.conf"
+post_hook = "tmux source-file ~/.config/tmux/tmux.conf"
+
+[templates.lualine]
+input_path = "~/.config/noctalia/templates/lualine.lua"
+output_path = "~/.config/nvim/lua/lualine/themes/matugen.lua"
+post_hook = "kill -s SIGUSR1 $(pidof nvim)"
+
+[templates.qutebrowser]
+input_path = "~/.config/noctalia/templates/qutebrowser.py"
+output_path = "~/.config/qutebrowser/theme.py"
+post_hook = "pgrep qutebrowser > /dev/null && qutebrowser :config-source"

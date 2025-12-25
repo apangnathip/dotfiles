@@ -1,12 +1,10 @@
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "awww-daemon" 
-spawn-at-startup "wal" "-Rest"
+environment {
+    QT_QPA_PLATFORMTHEME "gtk3"
+}
 
+spawn-at-startup "uwsm" "app" "--" "qs" "-c" "noctalia-shell"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "kanshi" 
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "waybar" 
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "rog-control-center" 
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "clipse" "-listen" 
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "/usr/lib/polkit-kde-authentication-agent-1"
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "quadcastrgb" "solid" "#FFFFFF"
 
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
@@ -44,6 +42,7 @@ output "eDP-1" {
 output "DP-2" {
     variable-refresh-rate
     hot-corners { off; }
+    focus-at-startup
 }
 
 cursor {
@@ -52,7 +51,7 @@ cursor {
 }
 
 layout {
-    gaps 12
+    gaps 15
     center-focused-column "never"
     always-center-single-column
     default-column-width { proportion 0.5; }
@@ -69,11 +68,7 @@ layout {
         proportion 1.0
     }
 
-    focus-ring {
-        width 1
-        active-color "#888888"
-        inactive-color "#222222"
-    }
+    focus-ring { width 1; }
 
     shadow {
         on
@@ -81,7 +76,6 @@ layout {
         softness 15 
         spread 2
         offset x=0 y=5
-        color "#0007"
     }
 }
 
@@ -90,31 +84,33 @@ overview {
 }
 
 layer-rule {
-    match namespace="wallpaper"
+    match namespace="^noctalia-overview*"
     place-within-backdrop true
 }
 
 binds {
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Super+Return { spawn "app2unit" "--" "ghostty"; }
+    Super+B { spawn "app2unit" "--" "qutebrowser"; }
+    Mod+Shift+C { spawn "hyprpicker" "-a"; }
 
-    Super+Space hotkey-overlay-title="Run Apps" { spawn "rofi" "-show" "drun"; }
-    Super+Alt+L hotkey-overlay-title="Lock Screen" { spawn "hyprlock"; }
-    Super+Return hotkey-overlay-title="Open Terminal" { spawn "ghostty"; }
-    Super+B hotkey-overlay-title="Open Browser" { spawn "qutebrowser"; }
-    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn "hyprpicker" "-a"; }
+    Super+Alt+L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Super+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+Tab { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Super+Comma { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+    Ctrl+Alt+Delete { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    Super+W { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
+    KP_Insert repeat=false { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
 
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+    XF86AudioPlay        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    XF86AudioPrev        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "next"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp     allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+    XF86MonBrightnessDown   allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
     XF86Launch1 { spawn "rog-control-center"; }
 
@@ -224,25 +220,14 @@ binds {
     Ctrl+F12 { screenshot-screen; }
     Alt+F12{ screenshot-window; }
 
+    Shift+Alt+Delete { quit; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-
-    Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
-
     Mod+Shift+P { power-off-monitors; }
 }
 
-
-// Work around WezTerm's initial configure bug
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
+    geometry-corner-radius 8 
+    clip-to-geometry true
 }
 
 window-rule {
@@ -251,13 +236,15 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 5
-    clip-to-geometry true
-}
-
-window-rule {
+    match app-id="org.quickshell" title="Noctalia"
     match app-id="rog-control-center"
     match app-id="org.pulseaudio.pavucontrol"
+    default-window-height { fixed 500; }
     open-floating true
 }
 
+debug {
+  honor-xdg-activation-with-invalid-serial
+}
+
+include "./noctalia.kdl"

@@ -7,4 +7,4 @@ confirm-close-surface = false
 app-notifications = no-config-reload
 
 background-opacity = 0.85
-theme = "/home/alpan/.cache/wal/ghostty.conf"
+theme = "noctalia"
