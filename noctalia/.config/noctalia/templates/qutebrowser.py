@@ -28,14 +28,14 @@ def setup(c):
     c.colors.statusbar.command.private.fg = "white"
 
     c.colors.tabs.bar.bg = "{{colors.background.default.hex}}"
-    c.colors.tabs.odd.bg = "{{colors.background.default.hex}}"
+    c.colors.tabs.odd.bg = "{{colors.surface_container.default.hex}}"
     c.colors.tabs.odd.fg = "{{colors.outline.default.hex}}"
-    c.colors.tabs.even.bg = "{{colors.background.default.hex}}"
+    c.colors.tabs.even.bg = "{{colors.surface_container_low.default.hex}}"
     c.colors.tabs.even.fg = "{{colors.outline.default.hex}}"
 
-    c.colors.tabs.selected.even.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.tabs.selected.even.bg = "{{colors.background.default.hex}}"
     c.colors.tabs.selected.even.fg = "{{colors.on_surface.default.hex}}"
-    c.colors.tabs.selected.odd.bg = "{{colors.surface_container.default.hex}}"
+    c.colors.tabs.selected.odd.bg = "{{colors.background.default.hex}}"
     c.colors.tabs.selected.odd.fg = "{{colors.on_surface.default.hex}}"
 
     c.colors.downloads.bar.bg = "{{colors.surface_container_lowest.default.hex}}"
