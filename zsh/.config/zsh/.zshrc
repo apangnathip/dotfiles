@@ -12,20 +12,23 @@ HISTFILE=~/.histfile
 HISTCONTROL=ignoreboth
 ZSH_AUTOSUGGEST_STRATEGY=(history completion) 
 
+eval $(dircolors)
 zmodload zsh/complist
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 autoload -Uz tetriscurses # must have 
 
 zstyle ":completion:*" completer _extensions _complete _approximate
-zstyle ":completion:*" menu select
+zstyle ":completion:*" menu no
 zstyle ":completion:*" complete-options true
 zstyle ":completion:*" use-cache on
 zstyle ":completion:*" cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ":completion:*:git-checkout:*" sort false
 
 zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-separator ''
-zstyle ':completion:*:options' list-colors '=(#b)(-[^ -]#)#( [^-]*)=0=0=33'
+zstyle ":completion:*" list-separator ""
+zstyle ":completion:*:options" list-colors "=(#b)(-[^ -]#)#( [^-]*)=0=0=33"
+zstyle ":completion:*:descriptions" format "[%d]"
 
 setopt PUSHD_SILENT
 setopt pushd_ignore_dups
@@ -43,7 +46,7 @@ alias vim=nvim
 alias ls="eza -F always"
 alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
-alias lt="eza -TF always --level=2"
+alias lt="eza -TF always --level=3"
 alias tp="trashy put"
 
 alias d="dirs -v | tail -n +2"
@@ -64,23 +67,23 @@ zle -N tmux-sessionizer
 
 bindkey "^[p" tmux-sessionizer 
 bindkey "^f" autosuggest-accept
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect "h" vi-backward-char
+bindkey -M menuselect "k" vi-up-line-or-history
+bindkey -M menuselect "l" vi-forward-char
+bindkey -M menuselect "j" vi-down-line-or-history
 
 cursor_mode() {
-    cursor_block='\e[2 q'
-    cursor_beam='\e[6 q'
+    cursor_block="\e[2 q"
+    cursor_beam="\e[6 q"
 
     function zle-keymap-select {
         if [[ ${KEYMAP} == vicmd ]] ||
-            [[ $1 = 'block' ]]; then
+            [[ $1 = "block" ]]; then
             echo -ne $cursor_block
         elif [[ ${KEYMAP} == main ]] ||
             [[ ${KEYMAP} == viins ]] ||
-            [[ ${KEYMAP} = '' ]] ||
-            [[ $1 = 'beam' ]]; then
+            [[ ${KEYMAP} = "" ]] ||
+            [[ $1 = "beam" ]]; then
             echo -ne $cursor_beam
         fi
     }
@@ -94,5 +97,10 @@ source <(fzf --zsh)
 source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme; [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source "$XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$XDG_CONFIG_HOME/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
 source "$XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh"
 
+zstyle ":fzf-tab:complete:cd:*" fzf-preview "eza -1 --color=always $realpath"
+zstyle ":fzf-tab:*" --bind=tab:accept
+zstyle ":fzf-tab:*" use-fzf-default-opts yes
+zstyle ":fzf-tab:*" switch-group "<" ">"
