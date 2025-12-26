@@ -1,11 +1,3 @@
-environment {
-    QT_QPA_PLATFORMTHEME "gtk3"
-}
-
-spawn-at-startup "uwsm" "app" "--" "qs" "-c" "noctalia-shell"
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "kanshi" 
-spawn-at-startup "uwsm" "app" "-s" "s" "--" "/usr/lib/polkit-kde-authentication-agent-1 " 
-
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H-%M-%S.png"
@@ -27,6 +19,7 @@ input {
     mouse {
         accel-speed 0.0
         accel-profile "flat"
+        scroll-factor 1.0
     }
 
     warp-mouse-to-focus
@@ -204,8 +197,8 @@ binds {
     Mod+Shift+S { fullscreen-window; }
     Mod+Ctrl+S { expand-column-to-available-width; }
 
-    Mod+C { center-column; }
-    Mod+Ctrl+C { center-visible-columns; }
+    Mod+I { center-column; }
+    Mod+Ctrl+I { center-visible-columns; }
 
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
@@ -239,14 +232,26 @@ window-rule {
 
 window-rule {
     match app-id="org.quickshell" title="Noctalia"
+    match app-id="org.quickshell" title="AlpanWalpan"
     match app-id="rog-control-center"
     match app-id="org.pulseaudio.pavucontrol"
     default-window-height { fixed 500; }
     open-floating true
 }
 
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+window-rule {
+    match app-id="steam" title="Friends List"
+    default-column-width { fixed 300; }
+}
+
 debug {
   honor-xdg-activation-with-invalid-serial
+  render-drm-device "/dev/dri/renderD128"
 }
 
 include "./noctalia.kdl"
