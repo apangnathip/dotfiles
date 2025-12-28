@@ -10,7 +10,6 @@ theme.setup(c)
 
 c.auto_save.session = True
 c.scrolling.smooth = True
-c.new_instance_open_target = "tab-silent"
 
 c.tabs.title.format = "{audio}{current_title}"
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 9, "right": 9}
@@ -20,9 +19,16 @@ c.tabs.indicator.width = 0
 c.fonts.default_family = ["Noto Sans"]
 c.fonts.default_size = "10pt"
 
-c.content.javascript.clipboard = "access"
+c.content.blocking.method = "both"
 c.content.blocking.enabled = True
+c.content.javascript.clipboard = "access"
 c.colors.webpage.preferred_color_scheme = "dark"
+
+config.set(
+    "content.headers.user_agent",
+    "Mozilla/5.0 ({os_info}; rv:135.0) Gecko/20100101 Firefox/135",
+    "https://accounts.google.com/*",
+)
 
 config.unbind("d")
 config.bind("q", "tab-close")

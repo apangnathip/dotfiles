@@ -19,4 +19,12 @@ post_hook = "kill -s SIGUSR1 $(pidof nvim)"
 [templates.qutebrowser]
 input_path = "~/.config/noctalia/templates/qutebrowser.py"
 output_path = "~/.config/qutebrowser/theme.py"
-post_hook = "pgrep qutebrowser > /dev/null && qutebrowser :config-source"
+post_hook = "kill -s SIGHUP $(pgrep qutebrowser)" 
+
+[templates.gtk3]
+input_path = "~/.config/noctalia/templates/gtk.css"
+output_path = "~/.config/gtk-3.0/gtk.css"
+
+[templates.gtk4]
+input_path = "~/.config/noctalia/templates/gtk.css"
+output_path = "~/.config/gtk-4.0/gtk.css"
