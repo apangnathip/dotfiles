@@ -67,14 +67,13 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/tpope/vim-fugitive",
-	"https://github.com/lukas-reineke/indent-blankline.nvim",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/tpope/vim-dispatch",
 	"https://github.com/catgoose/nvim-colorizer.lua",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 })
 
 require("nvim-autopairs").setup()
@@ -294,17 +293,14 @@ require("rose-pine").setup({
 		bold = false,
 	},
 	highlight_groups = {
-		Normal = { bg = "none" },
-		NormalNC = { bg = "none" },
-		NormalFloat = { bg = "none" },
-		FloatBorder = { bg = "none" },
-		Folded = { bg = "none" },
-		CursorLine = { bg = "#1f1726" },
 		CursorLineNr = { fg = "white" },
-		SignColumn = { bg = "none" },
+		CurSearch = { fg = "base", bg = "leaf", inherit = false },
+		Search = { fg = "text", bg = "leaf", blend = 20, inherit = false },
+		Comment = { italic = true },
 		["@function.builtin"] = { fg = "#eb6f92" },
 	},
 })
+
 vim.cmd.colorscheme("rose-pine-moon")
 
 local theme = require("lualine.themes.matugen")
@@ -325,20 +321,6 @@ require("lualine").setup({
 	},
 	extensions = { "quickfix", "fugitive", "man", "oil" },
 })
-
--- local hooks = require("ibl.hooks")
--- hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
--- 	vim.api.nvim_set_hl(0, "IndentHL", { fg = "#22192a" })
--- end)
--- require("ibl").setup({
--- 	scope = { enabled = false },
--- 	indent = {
--- 		highlight = {
--- 			"IndentHL",
--- 		},
--- 	},
--- })
--- }}}
 
 -- {{{ Autocmds
 local al_au = vim.api.nvim_create_augroup("alpan", { clear = true })
@@ -388,11 +370,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 vim.api.nvim_create_autocmd("Signal", {
-  pattern = "SIGUSR1",
-  group = al_au,
-  callback = function ()
-    require("lualine").setup({options={theme="matugen"}})
-  end
+	pattern = "SIGUSR1",
+	group = al_au,
+	callback = function()
+		require("lualine").setup({ options = { theme = "matugen" } })
+	end,
 })
 -- }}}
 

@@ -1,14 +1,12 @@
 [config]
 
-[templates]
-
 [templates.vesktop]
 input_path = "~/.config/noctalia/templates/vesktop.css"
 output_path = "~/.config/vesktop/themes/noctalia.theme.css"
 
 [templates.tmux]
 input_path = "~/.config/noctalia/templates/tmux.conf"
-output_path = "~/.config/tmux/mutagen.conf"
+output_path = "~/.config/tmux/matugen.conf"
 post_hook = "tmux source-file ~/.config/tmux/tmux.conf"
 
 [templates.lualine]
@@ -28,3 +26,8 @@ output_path = "~/.config/gtk-3.0/gtk.css"
 [templates.gtk4]
 input_path = "~/.config/noctalia/templates/gtk.css"
 output_path = "~/.config/gtk-4.0/gtk.css"
+
+[templates.zathura]
+input_path = "~/.config/noctalia/templates/zathura"
+output_path = "~/.config/zathura/matugen"
+
