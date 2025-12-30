@@ -31,3 +31,6 @@ output_path = "~/.config/gtk-4.0/gtk.css"
 input_path = "~/.config/noctalia/templates/zathura"
 output_path = "~/.config/zathura/matugen"
 
+[templates.palette]
+input_path = "~/.config/noctalia/templates/palette"
+output_path = "~/.cache/palette"

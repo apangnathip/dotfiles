@@ -1,7 +1,3 @@
-if [ -z "$TMUX" ]; then
-  exec tmux new-session -t ground
-fi
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -50,6 +46,7 @@ alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
 alias lt="eza -TF always --level=3"
 alias tp="trashy put"
+alias land="test -z $TMUX && exec tmux new-session -t ground"
 
 alias d="dirs -v | tail -n +2"
 for index ({1..9}) alias "$index"="cd +${index}"; unset index

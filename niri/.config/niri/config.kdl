@@ -82,8 +82,8 @@ layer-rule {
 }
 
 binds {
-    Super+Return { spawn "app2unit" "--" "ghostty"; }
-    Super+Shift+Return { spawn "app2unit" "--" "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
+    Super+Return { spawn "app2unit" "--" "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
+    Super+Shift+Return { spawn "app2unit" "--" "ghostty"; }
     Super+B { spawn "app2unit" "--" "qutebrowser"; }
     Super+D { spawn "app2unit" "--" "vesktop"; }
     Super+E { spawn "app2unit" "--" "nautilus"; }
