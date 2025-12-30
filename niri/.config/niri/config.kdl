@@ -1,6 +1,6 @@
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
-screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H-%M-%S.png"
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H:%M:%S.png"
 
 input {
     keyboard {
@@ -83,6 +83,7 @@ layer-rule {
 
 binds {
     Super+Return { spawn "app2unit" "--" "ghostty"; }
+    Super+Shift+Return { spawn "app2unit" "--" "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
     Super+B { spawn "app2unit" "--" "qutebrowser"; }
     Super+D { spawn "app2unit" "--" "vesktop"; }
     Super+E { spawn "app2unit" "--" "nautilus"; }
@@ -214,7 +215,8 @@ binds {
 
     Shift+F12 { screenshot; }
     Ctrl+F12 { screenshot-screen; }
-    Alt+F12{ screenshot-window; }
+    Alt+F12 { screenshot-window; }
+    Ctrl+Shift+F12 { spawn-sh "wl-paste --type image/png | swappy -f -"; }
 
     Shift+Alt+Delete { quit; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
@@ -242,12 +244,19 @@ window-rule {
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
-    default-floating-position x=10 y=10 relative-to="bottom-right"
+    default-floating-position x=0 y=0 relative-to="bottom-right"
+    open-focused false
 }
 
 window-rule {
     match app-id="steam" title="Friends List"
     default-column-width { fixed 300; }
+}
+
+window-rule {
+    match app-id="org.qutebrowser.qutebrowser"
+    match app-id="org.quickshell" title="Noctalia" 
+    scroll-factor 2
 }
 
 debug {

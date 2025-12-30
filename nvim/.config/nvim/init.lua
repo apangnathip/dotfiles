@@ -232,6 +232,7 @@ vim.lsp.enable({
 	"biome",
 	"fish_lsp",
 	"qmlls",
+  "cssls",
 })
 
 vim.lsp.config("lua_ls", {
