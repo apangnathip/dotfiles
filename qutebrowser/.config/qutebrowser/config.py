@@ -31,7 +31,6 @@ c.content.blocking.method = "both"
 c.content.blocking.enabled = True
 c.content.javascript.clipboard = "access"
 c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.webpage.bg = "#111111"
 
 config.set("colors.webpage.darkmode.enabled", True, "qute://*")
 config.set(

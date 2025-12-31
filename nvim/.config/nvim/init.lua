@@ -19,6 +19,7 @@ vim.o.ignorecase = true
 vim.o.winborder = "rounded"
 vim.o.showmode = false
 vim.o.clipboard = "unnamedplus"
+vim.o.cmdheight = 0
 
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>")
 vim.keymap.set("n", "<leader>gs", "<cmd>Git<cr>")
@@ -60,7 +61,7 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/nvim-mini/mini.surround",
+	"https://github.com/kylechui/nvim-surround",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/windwp/nvim-autopairs",
 	"https://github.com/christoomey/vim-tmux-navigator",
@@ -71,14 +72,19 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim",
 	"https://github.com/tpope/vim-dispatch",
 	"https://github.com/catgoose/nvim-colorizer.lua",
+	"https://github.com/gbprod/substitute.nvim",
+	"https://github.com/Wansmer/treesj",
+	"https://github.com/goolord/alpha-nvim",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 })
 
 require("nvim-autopairs").setup()
-require("mini.surround").setup()
+require("nvim-surround").setup()
 require("mason").setup()
+require("substitute").setup()
+require("treesj").setup()
 
 require("colorizer").setup({
 	user_default_options = {
@@ -86,6 +92,11 @@ require("colorizer").setup({
 		css = true,
 	},
 })
+
+vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
+vim.keymap.set("n", "ss", require("substitute").line, { noremap = true })
+vim.keymap.set("n", "S", require("substitute").eol, { noremap = true })
+vim.keymap.set("x", "s", require("substitute").visual, { noremap = true })
 
 -- {{{ Utils
 local utils = {
@@ -200,8 +211,10 @@ fzf.setup({
 })
 
 vim.keymap.set("n", "<leader>f", fzf.files)
+vim.keymap.set("n", "<leader>r", fzf.oldfiles)
 vim.keymap.set("n", "<leader>b", fzf.buffers)
 vim.keymap.set("n", "<leader>l", fzf.live_grep)
+vim.keymap.set("n", "<leader>z", fzf.zoxide)
 vim.keymap.set("n", "<leader>sh", fzf.helptags)
 vim.keymap.set("n", "<leader>ss", fzf.builtin)
 vim.keymap.set("n", "<leader>sm", fzf.man_pages)
@@ -232,7 +245,7 @@ vim.lsp.enable({
 	"biome",
 	"fish_lsp",
 	"qmlls",
-  "cssls",
+	"cssls",
 })
 
 vim.lsp.config("lua_ls", {
@@ -311,6 +324,7 @@ require("lualine").setup({
 		theme = theme,
 		component_separators = { left = "", right = "|" },
 		section_separators = { left = "", right = "" },
+		disabled_filetypes = { "alpha" },
 	},
 	sections = {
 		lualine_a = { "mode" },
@@ -322,6 +336,57 @@ require("lualine").setup({
 	},
 	extensions = { "quickfix", "fugitive", "man", "oil" },
 })
+
+local dashboard = require("alpha.themes.dashboard")
+dashboard.section.header.val = {
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡕⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠙⠇⠧⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢠⠤⠁⢸⡄⠀⠉⣇⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⣆⡐⠊⢠⣨⣺⠔⣀⡤⢾⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⢤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⢠⡨⠇⠀⠀⢀⢸⣇⠀⣉⠀⠈⠾⡆⠀⠀⠀⠀⠀⡠⡄⠀⠀⠀⠀⠀⠀⠀⠀⢠⣀⠚⠈⠰⠸⢥⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⢸⡉⠀⠀⠠⢤⣾⣗⠅⠐⠒⠂⠈⢳⡄⠀⠀⠀⡔⠁⣷⡀⠀⠀⠀⠀⠀⠀⢀⠾⡈⠀⣀⠇⠀⢚⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⡈⣽⣅⠀⠀⢝⣿⣯⠓⠂⠀⠠⢀⣀⣈⣶⣤⣸⠀⢀⢿⠀⠀⠀⠀⢀⡔⠊⠀⠀⠛⠀⣿⢏⣡⡤⢽⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⠀⡇⣚⣷⣟⠉⢹⠏⠀⣳⣦⣬⣲⣶⣿⣿⣏⡑⢝⠀⠨⠧⠤⡄⠠⢯⣀⠀⠈⠢⡀⡀⢦⡏⠈⠁⠀⢉⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⡰⢺⡔⢯⣷⡦⡌⣤⣬⢿⣿⣿⠻⡖⠯⣿⣻⣿⠈⡸⢀⣴⣶⣼⢄⣸⣢⠀⠈⠢⡐⣡⡼⢀⡠⢤⣐⠀⢹⡀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠀⢹⡿⡷⣾⡿⡱⠡⡻⣿⢿⣿⡿⢋⢳⣿⣿⣟⣯⠥⣥⣹⣿⣻⡶⢮⣸⣿⡶⢄⠀⢱⣿⡫⠕⡐⡂⠐⠁⠊⠒⡆⠀⠀⠔⣼⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⠀⠀⠀⠠⡚⣢⠓⠈⠒⣁⣄⠈⠂⠭⠥⠕⠋⠑⠍⢫⡋⠧⠚⠡⠻⣿⣿⡷⢺⣧⣿⣽⣤⣨⢹⠟⠉⠁⣀⣠⠰⠒⠉⠉⠁⢀⠎⠀⣹⠀⠀⠀⠀⠀⢀⡴⡟",
+	"    ⠀⠀⠀⠀⠀⠀⢠⢉⡠⡳⠕⠮⢐⠪⠕⠢⠦⢔⣐⠴⣦⣄⣀⣀⠤⣦⡀⠁⠒⠐⠒⢎⠺⣟⣮⠿⢃⣾⣻⣗⣦⣾⡿⣢⢀⣠⡂⠑⠞⠀⣠⡟⠀⠀⠀⢀⣼⢾⡵⠀",
+	"    ⠀⠀⠀⠀⠀⠀⣮⢋⠰⠶⠶⠆⣓⠁⠪⠆⠰⠶⠀⠙⢀⢩⢀⣀⢭⡇⣋⠒⠐⠒⢱⢄⠈⠒⠒⠈⡁⠹⠘⣜⢿⣵⣏⣱⢚⣮⣽⡆⠀⢈⣿⡁⠀⠀⢠⣫⠫⣴⠃⠀",
+	"    ⠀⠀⠀⠀⠀⡘⢀⣠⡴⣖⣒⡺⠮⢿⡒⠲⣶⡒⠛⣛⣶⣤⠤⢅⢀⣂⡘⠐⠒⠈⠃⣑⡉⢥⡬⠍⡽⡄⠑⠠⢁⠢⠭⣸⠽⣯⣏⡧⣾⣾⢴⡿⠀⢠⢃⢯⣼⠇⠀⠀",
+	"    ⠀⠀⠀⡠⠔⠞⡿⢫⢪⠂⣱⠎⣱⠄⠈⡢⠀⠉⠉⣠⠤⠐⠒⠒⠒⢒⣒⡒⠾⣿⠦⣌⣁⣑⠣⡟⢈⢊⢖⡠⠤⠤⡄⠑⣷⠿⢯⡛⣷⡿⣲⣩⡭⡙⢜⢗⡏⠀⠀⠀",
+	"    ⠀⢠⠮⡤⢀⡀⠉⠲⣕⡮⠕⢋⡠⠒⢁⡠⠴⠒⠄⠙⠳⣤⡈⠫⣓⢖⠒⢪⡢⡀⠑⢌⠙⢟⠛⠶⢤⣁⠊⠅⣜⠗⡽⣴⢪⢟⢽⣯⣿⠀⣻⣾⡿⣝⢑⣿⠁⠀⠀⠀",
+	"    ⣰⡿⢸⠡⡏⣰⣵⣶⡿⠿⠮⠿⠾⠾⠷⠦⢤⡤⡀⣀⣠⣄⡙⢢⣈⠂⠍⠛⠒⠚⢀⠨⠇⠀⠑⠒⠉⠉⣙⣒⣺⣄⡙⠐⢛⣭⣷⡈⠓⢿⣿⡏⠄⣧⣽⡃⠀⠀⠀⠀",
+	"    ⡷⣸⢐⣸⣿⡻⠩⣒⡐⢈⡍⠉⠉⠁⠁⠈⠀⠈⠀⠀⠉⠈⠉⠙⠛⢶⣴⣶⣖⣊⣁⣀⡤⠔⢄⠀⢟⠉⢩⠤⠬⣩⡙⢫⣉⢛⢿⣭⠶⣖⢮⡿⣶⢿⣽⠀⠀⠀⠀⠀",
+	"    ⢺⣻⣤⣿⠇⠀⠀⠀⠙⢿⠆⠀⠀⠀⢰⣥⣶⣶⣤⣦⣦⣄⣄⡀⠀⠀⠱⡇⠉⠋⠛⠟⠷⣖⣬⣦⡀⢱⡄⠩⡭⡭⢣⠈⢟⠅⡯⣙⣽⣿⡷⣽⣾⢷⠇⠀⠀⠀⠀⠀",
+	"    ⠀⠙⢿⠏⠀⠀⡀⠠⣀⠀⠓⡄⠀⠀⠁⢻⡿⣿⣿⣿⣿⣿⣻⣿⣷⣄⠀⢿⠀⠀⠂⠀⠀⠈⠒⠩⢛⢻⢽⣆⣉⢉⢉⡠⠼⠀⠑⠉⠘⣿⣿⢯⣯⣾⠀⠀⠀⠀⠀⠀",
+	"    ⠀⢀⠊⢠⣰⣶⣿⣿⢿⣦⠀⠇⠀⠒⡀⠀⣻⢻⣿⣷⡿⣾⣾⣿⣿⣿⣆⠹⣄⠀⠴⣖⠂⠐⠁⠊⠐⠀⢑⡡⢝⠧⣄⣤⠴⠴⡄⠸⡉⢤⣝⢝⢗⡇⠀⠀⠀⠀⠀⠀",
+	"    ⠀⢸⢀⣿⢟⡿⣿⢿⣻⠋⠀⡀⠀⠀⣯⣚⣏⣞⡿⡵⡽⣟⣿⢿⣿⣿⡇⠀⠹⣷⠧⣫⠀⠀⠀⠀⠠⠂⠀⠀⠀⠈⠊⠝⡶⣦⣸⠀⢣⢸⣿⡆⡿⣅⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠘⡴⢿⢽⢹⣿⡞⣿⣇⠠⠁⠀⠀⠑⢷⣎⣺⣱⢿⣻⣟⣯⣿⣯⣿⡇⠀⣤⡇⣺⡗⡇⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢝⢿⣼⣼⠿⣿⢹⢽⡆⠀⠀⠀⠀⠀",
+	"    ⠀⠀⢨⠘⢮⣽⣿⠿⣿⣿⣷⠀⠐⡄⠀⠀⠋⠿⣿⡿⣿⡿⣯⢽⣿⠞⠁⠀⣼⣿⡼⣛⡋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠫⣫⣿⡔⡺⣺⢿⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠜⢀⢷⠅⠀⠀⣿⡿⣿⡇⠀⡇⢀⠀⢀⣀⠀⠈⢉⠓⠛⠉⠀⠀⠀⠀⠈⠛⠛⠿⣺⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠙⣿⣿⢾⡱⡍⡇⠀⠀⠀⠀",
+	"    ⠀⠰⠁⣘⠋⠀⠀⠀⢻⠙⣿⡇⠀⠀⠀⠐⣠⠿⠃⠀⠀⠉⠹⡖⠀⠀⠀⠀⠀⠀⠀⠀⡀⠑⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⢿⣿⣹⢎⠃⠀⠀⠀⠀",
+	"    ⠀⠈⠀⠸⠀⠀⠀⠀⠼⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠈⡄⠀⠀⠀⣀⣴⠓⠒⢻⣯⡃⡫⠒⠠⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠜⢼⣟⣏⣝⠍⠀⠀⠀⠀⠀",
+	"    ⠀⢘⠠⣤⠀⢀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠑⠀⣀⡼⣿⡻⣝⢿⣚⣯⢵⣞⣆⢀⣤⣤⡄⠀⠐⠠⢄⢀⣀⠄⢞⣜⡹⣇⣿⠋⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠈⠒⠛⢧⠎⠀⠀⠀⠀⠀⠀⠈⡟⠆⠀⠀⠀⠀⢀⠎⠉⢱⣢⣤⡾⠻⢿⣟⠿⠉⠀⡼⢀⠙⠙⣟⣼⠟⠖⡟⠀⠀⡄⠀⡁⠀⢁⣇⡓⣧⣿⡝⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⢀⢎⢽⢰⠃⢸⠂⢰⠆⠀⡀⠀⠀⠀⠀⠀⡈⠀⠀⢠⡿⠀⢀⠀⢢⠀⠀⢀⣼⠳⣪⣎⡳⠊⢸⠄⠀⠂⠀⠀⡇⢀⠑⡷⣫⢞⣷⣯⠟⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⡎⣰⣤⣾⢴⣼⣤⣾⣀⣸⠃⡴⠤⢦⠀⣄⠧⢴⢶⣿⣾⠀⠈⡆⠀⠃⠀⢰⣝⣾⡿⡗⡿⠈⡉⠀⣀⣴⣀⣴⢯⠝⣨⡧⣟⣾⣏⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⢰⢹⠸⠁⠇⡌⢰⠁⣟⠉⢻⠚⠷⡦⠿⣤⣽⣤⣼⢿⣿⡿⠀⡀⠘⠀⠀⠀⣽⣺⣫⣪⣮⢷⣄⣦⣯⣾⣿⡝⢇⢢⢼⣿⣽⣾⡿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⢸⠀⠄⠀⡄⢂⠨⢄⡉⠈⡉⠀⠘⠃⠀⣿⠁⠴⠿⠞⢫⠃⠀⡆⠀⠀⢠⢰⢿⣵⣭⠧⢅⣻⠻⡛⢗⣿⢿⣽⣿⣺⣿⣻⣾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠀⡇⠁⠀⠋⠘⠀⢰⠃⠀⠃⠀⠈⠀⠀⠀⠀⠀⠀⠔⠁⠀⣼⠀⠀⠰⠉⢰⣿⣿⣪⣿⣛⣶⣿⣯⡻⣷⣻⣟⣿⢟⡻⢟⢁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⠿⠀⠀⠀⢠⣾⣫⣷⣿⣿⣿⣿⣿⣯⡿⠯⠟⠛⠛⠛⠚⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⢸⠀⠀⢀⡀⣀⠀⣀⠀⢀⣀⣀⣀⠴⠤⠦⠄⢄⣄⢂⣬⣀⣀⣀⣠⡴⣟⢝⠯⣛⠭⣯⡽⢋⠐⠀⠀⠂⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⡆⣐⣶⡷⣿⣾⣿⣶⡶⣶⣶⣾⣷⠿⠿⣽⣿⣿⣟⣿⣭⣿⣿⢿⣿⣽⣭⢵⣫⣼⡙⠐⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"    ⠀⠀⠈⠉⠛⠛⠫⢽⢿⣞⣔⣿⡿⠋⠃⠁⠈⠐⠙⠩⠻⠓⠏⠛⠱⠉⠍⠍⠁⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+	"                                                                ",
+	"                                                                ",
+	"                                                                ",
+}
+
+dashboard.section.buttons.val = {}
+
+require("alpha").setup(dashboard.config)
+
+-- }}}
 
 -- {{{ Autocmds
 local al_au = vim.api.nvim_create_augroup("alpan", { clear = true })

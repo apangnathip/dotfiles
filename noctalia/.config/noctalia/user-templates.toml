@@ -1,5 +1,9 @@
 [config]
 
+[templates.palette]
+input_path = "~/.config/noctalia/templates/palette"
+output_path = "~/.cache/palette"
+
 [templates.vesktop]
 input_path = "~/.config/noctalia/templates/vesktop.css"
 output_path = "~/.config/vesktop/themes/noctalia.theme.css"
@@ -30,7 +34,3 @@ output_path = "~/.config/gtk-4.0/gtk.css"
 [templates.zathura]
 input_path = "~/.config/noctalia/templates/zathura"
 output_path = "~/.config/zathura/matugen"
-
-[templates.palette]
-input_path = "~/.config/noctalia/templates/palette"
-output_path = "~/.cache/palette"

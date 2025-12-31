@@ -9,7 +9,6 @@ HISTCONTROL=ignoreboth
 ZSH_AUTOSUGGEST_STRATEGY=(history completion) 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=248"
 
-eval $(dircolors)
 zmodload zsh/complist
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
@@ -28,6 +27,11 @@ zstyle ":completion:*" list-separator ""
 zstyle ":completion:*:options" list-colors "=(#b)(-[^ -]#)#( [^-]*)=0=0=33"
 zstyle ":completion:*:descriptions" format "[%d]"
 
+zstyle ":fzf-tab:complete:cd:*" fzf-preview "eza -1 --color=always $realpath"
+zstyle ":fzf-tab:*" --bind=tab:accept
+zstyle ":fzf-tab:*" use-fzf-default-opts yes
+zstyle ":fzf-tab:*" switch-group "<" ">"
+
 setopt PUSHD_SILENT
 setopt pushd_ignore_dups
 setopt auto_pushd
@@ -37,9 +41,11 @@ setopt no_case_glob
 setopt no_case_match
 setopt globdots
 
+alias b=bd
 alias cat=bat
 alias sv=sudoedit
 alias v=nvim
+alias vi=nvim
 alias vim=nvim
 alias ls="eza -F always"
 alias la="eza -aF always"
@@ -48,11 +54,10 @@ alias lt="eza -TF always --level=3"
 alias tp="trashy put"
 alias land="test -z $TMUX && exec tmux new-session -t ground"
 
-alias d="dirs -v | tail -n +2"
-for index ({1..9}) alias "$index"="cd +${index}"; unset index
-
-tmux-sessionizer() { "$XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh"; zle reset-prompt; }
+zv() { z "$1" && nvim .; }
+tmux-sessionizer() { "$XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh"; zle reset-prompt; };
 zle -N tmux-sessionizer
+
 
 bindkey -e
 bindkey -r "^[p"
@@ -74,7 +79,5 @@ source "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highligh
 source "$XDG_CONFIG_HOME/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
 source "$XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh"
 
-zstyle ":fzf-tab:complete:cd:*" fzf-preview "eza -1 --color=always $realpath"
-zstyle ":fzf-tab:*" --bind=tab:accept
-zstyle ":fzf-tab:*" use-fzf-default-opts yes
-zstyle ":fzf-tab:*" switch-group "<" ">"
+eval "$(dircolors)"
+eval "$(zoxide init zsh)"
