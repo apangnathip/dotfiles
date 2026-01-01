@@ -5,7 +5,7 @@ screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H:%M:%S.png"
 input {
     keyboard {
         repeat-delay 200 
-        repeat-rate 30
+        repeat-rate 40
     }
 
     touchpad {
@@ -82,11 +82,12 @@ layer-rule {
 }
 
 binds {
-    Super+Return { spawn "app2unit" "--" "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
-    Super+Shift+Return { spawn "app2unit" "--" "ghostty"; }
+    Super+Return { spawn "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
+    Super+Shift+Return { spawn "ghostty" "+new-window"; }
+    Super+E { spawn "ghostty" "-e" "yazi"; }
+    Super+Shift+E { spawn "app2unit" "--" "nautilus"; }
     Super+B { spawn "app2unit" "--" "qutebrowser"; }
     Super+D { spawn "app2unit" "--" "vesktop"; }
-    Super+E { spawn "app2unit" "--" "nautilus"; }
     Mod+Shift+C { spawn "hyprpicker" "-a"; }
 
     Super+Alt+L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
@@ -175,6 +176,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -249,8 +251,14 @@ window-rule {
 }
 
 window-rule {
+    match app-id="steam" title="Steam"
+    default-column-width { proportion 0.85; }
+}
+
+window-rule {
     match app-id="steam" title="Friends List"
-    default-column-width { fixed 300; }
+    default-column-width { proportion 0.15; }
+    open-focused false
 }
 
 window-rule {
