@@ -82,30 +82,31 @@ layer-rule {
 }
 
 binds {
-    Super+Return { spawn "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
-    Super+Shift+Return { spawn "ghostty" "+new-window"; }
-    Super+E { spawn "ghostty" "-e" "yazi"; }
-    Super+Shift+E { spawn "app2unit" "--" "nautilus"; }
-    Super+B { spawn "app2unit" "--" "qutebrowser"; }
-    Super+D { spawn "app2unit" "--" "vesktop"; }
-    Mod+Shift+C { spawn "hyprpicker" "-a"; }
+    Super+Return            { spawn "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
+    Super+Shift+Return      { spawn "ghostty" "+new-window"; }
+    Super+Shift+E           { spawn "app2unit" "--" "nautilus"; }
+    Super+E                 { spawn "ghostty" "-e" "yazi"; }
+    Super+B                 { spawn "app2unit" "--" "qutebrowser"; }
+    Super+D                 { spawn "app2unit" "--" "vesktop"; }
+    Super+S                 { spawn "app2unit" "--" "spotify"; }
+    Mod+Shift+C             { spawn "hyprpicker" "-a"; }
 
-    Super+Alt+L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
-    Super+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Super+C { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
-    Super+Tab { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Super+Comma { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
-    Super+W { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
-    Ctrl+Alt+Delete { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
-    KP_Insert repeat=false { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
+    Super+Alt+L             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Super+Space             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Super+C                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Super+Tab               { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Super+Comma             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+    Super+W                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
+    Ctrl+Alt+Delete         { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    KP_Insert repeat=false  { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
 
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-    XF86AudioMute        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+    XF86AudioRaiseVolume    allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
+    XF86AudioLowerVolume    allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
+    XF86AudioMute           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
 
-    XF86AudioPlay        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
-    XF86AudioPrev        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "next"; }
+    XF86AudioPlay           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    XF86AudioPrev           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "previous"; }
+    XF86AudioNext           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "next"; }
 
     XF86MonBrightnessUp     allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     XF86MonBrightnessDown   allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
@@ -125,10 +126,10 @@ binds {
     Mod+Shift+K     { move-window-up-or-to-workspace-up; }
     Mod+Shift+L     { move-column-right; }
 
-    Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
-    Mod+Ctrl+Home { move-column-to-first; }
-    Mod+Ctrl+End  { move-column-to-last; }
+    Mod+Home        { focus-column-first; }
+    Mod+End         { focus-column-last; }
+    Mod+Ctrl+Home   { move-column-to-first; }
+    Mod+Ctrl+End    { move-column-to-last; }
 
     Super+H     { focus-monitor-left; }
     Super+J     { focus-monitor-down; }
@@ -193,19 +194,19 @@ binds {
     Mod+Comma  { consume-window-into-column; }
     Mod+Period { expel-window-from-column; }
 
-    Mod+R { switch-preset-column-width; }
-    Mod+Ctrl+R { switch-preset-window-height; }
+    Mod+R       { switch-preset-column-width; }
+    Mod+Ctrl+R  { switch-preset-window-height; }
     Mod+Shift+R { reset-window-height; }
 
-    Mod+S { maximize-column; }
+    Mod+S       { maximize-column; }
     Mod+Shift+S { fullscreen-window; }
-    Mod+Ctrl+S { expand-column-to-available-width; }
+    Mod+Ctrl+S  { expand-column-to-available-width; }
 
-    Mod+I { center-column; }
-    Mod+Ctrl+I { center-visible-columns; }
+    Mod+I       { center-column; }
+    Mod+Ctrl+I  { center-visible-columns; }
 
-    Mod+Minus { set-column-width "-10%"; }
-    Mod+Equal { set-column-width "+10%"; }
+    Mod+Minus   { set-column-width "-10%"; }
+    Mod+Equal   { set-column-width "+10%"; }
 
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
@@ -215,14 +216,14 @@ binds {
 
     Mod+W { toggle-column-tabbed-display; }
 
-    Shift+F12 { screenshot; }
-    Ctrl+F12 { screenshot-screen; }
-    Alt+F12 { screenshot-window; }
-    Ctrl+Shift+F12 { spawn-sh "wl-paste --type image/png | swappy -f -"; }
+    Shift+F12       { screenshot; }
+    Ctrl+F12        { screenshot-screen; }
+    Alt+F12         { screenshot-window; }
+    Ctrl+Shift+F12  { spawn-sh "wl-paste --type image/png | swappy -f -"; }
 
     Shift+Alt+Delete { quit; }
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+P { power-off-monitors; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 }
 
 window-rule {
