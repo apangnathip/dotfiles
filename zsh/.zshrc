@@ -41,6 +41,7 @@ setopt no_case_glob
 setopt no_case_match
 setopt globdots
 
+alias cl=clear
 alias y=yazi
 alias b=bd
 alias cat=bat

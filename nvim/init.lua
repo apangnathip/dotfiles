@@ -53,6 +53,7 @@ vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set({ "n", "v" }, ":", ";")
 
+
 vim.pack.add({
 	"https://github.com/rose-pine/neovim",
 	"https://github.com/nvim-lualine/lualine.nvim",
@@ -74,6 +75,7 @@ vim.pack.add({
 	"https://github.com/gbprod/substitute.nvim",
 	"https://github.com/Wansmer/treesj",
 	"https://github.com/goolord/alpha-nvim",
+	"https://github.com/mrjones2014/smart-splits.nvim",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
@@ -213,26 +215,29 @@ vim.keymap.set("n", "<leader>f", fzf.files)
 vim.keymap.set("n", "<leader>r", fzf.oldfiles)
 vim.keymap.set("n", "<leader>b", fzf.buffers)
 vim.keymap.set("n", "<leader>l", fzf.live_grep)
-vim.keymap.set("n", "<leader>z", fzf.zoxide)
+vim.keymap.set("n", "<leader>o", fzf.zoxide)
 vim.keymap.set("n", "<leader>sh", fzf.helptags)
 vim.keymap.set("n", "<leader>ss", fzf.builtin)
 vim.keymap.set("n", "<leader>sm", fzf.man_pages)
 
-vim.keymap.set({ "n", "x", "o" }, "z", function()
-	require("flash").jump()
-end)
-vim.keymap.set({ "n", "x", "o" }, "<s-cr>", function()
-	require("flash").treesitter()
-end)
-vim.keymap.set("o", "r", function()
-	require("flash").remote()
-end)
-vim.keymap.set({ "o", "x" }, "R", function()
-	require("flash").treesitter_search()
-end)
-vim.keymap.set({ "c" }, "<c-s>", function()
-	require("flash").toggle()
-end)
+vim.keymap.set({ "n", "x", "o" }, "z", require("flash").jump)
+vim.keymap.set({ "n", "x", "o" }, "<leader>z", require("flash").treesitter)
+vim.keymap.set({ "c" }, "<C-s>", require("flash").toggle)
+
+vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
+vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
+vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
+vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)
+vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous)
+vim.keymap.set("n", "<C-A-h>", require("smart-splits").resize_left)
+vim.keymap.set("n", "<C-A-j>", require("smart-splits").resize_down)
+vim.keymap.set("n", "<C-A-k>", require("smart-splits").resize_up)
+vim.keymap.set("n", "<C-A-l>", require("smart-splits").resize_right)
+vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
+vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
+vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
+vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
+
 -- }}}
 
 -- {{{ LSP
