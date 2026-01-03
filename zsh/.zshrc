@@ -61,14 +61,6 @@ zle -N tmux-sessionizer
 
 
 bindkey -e
-bindkey -r "^[p"
-bindkey -r "^[P"
-bindkey -r "^[n"
-bindkey -r "^[N"
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[3~" delete-char
-bindkey "^[[5~" beginning-of-history
-bindkey "^[[6~" end-of-history
 bindkey "^[p" tmux-sessionizer 
 bindkey "^f" autosuggest-accept
 bindkey "^X^E" edit-command-line
@@ -82,3 +74,19 @@ source "$XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh"
 
 eval "$(dircolors)"
 eval "$(zoxide init zsh)"
+
+TRAPUSR1() { theme-foot; }
+
+precmd() { print -Pn "\e]133;A\e\\"; }
+
+chpwd-osc7-pwd() { (( ZSH_SUBSHELL )) || osc7-pwd; }
+
+osc7-pwd() {
+    emulate -L zsh 
+    setopt extendedglob
+    local LC_ALL=C
+    printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+}
+
+
+add-zsh-hook -Uz chpwd chpwd-osc7-pwd

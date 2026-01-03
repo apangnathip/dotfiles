@@ -82,13 +82,14 @@ layer-rule {
 }
 
 binds {
-    Super+Return            { spawn "ghostty" "-e" "tmux" "new-session" "-t" "ground"; }
-    Super+Shift+Return      { spawn "ghostty" "+new-window"; }
+    Super+Return            { spawn "app2unit" "--" "foot" "tmux" "new-session" "-t" "ground"; }
+    Super+Shift+Return      { spawn "app2unit" "--" "foot"; }
     Super+Shift+E           { spawn "app2unit" "--" "nautilus"; }
-    Super+E                 { spawn "ghostty" "-e" "yazi"; }
+    Super+E                 { spawn "foot" "yazi"; }
     Super+B                 { spawn "app2unit" "--" "qutebrowser"; }
     Super+D                 { spawn "app2unit" "--" "vesktop"; }
-    Super+S                 { spawn "app2unit" "--" "spotify"; }
+    Super+M                 { spawn "app2unit" "--" "spotify"; }
+    Super+S                 { spawn "app2unit" "--" "steam"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
 
     Super+Alt+L             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }

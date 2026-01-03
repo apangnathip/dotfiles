@@ -16,12 +16,12 @@ post_hook = "tmux source-file ~/.config/tmux/tmux.conf"
 [templates.lualine]
 input_path = "~/.config/noctalia/templates/lualine.lua"
 output_path = "~/.config/nvim/lua/lualine/themes/matugen.lua"
-post_hook = "kill -s SIGUSR1 $(pidof nvim)"
+post_hook = "pkill -USR1 nvim"
 
 [templates.qutebrowser]
 input_path = "~/.config/noctalia/templates/qutebrowser.py"
 output_path = "~/.config/qutebrowser/theme.py"
-post_hook = "kill -s SIGHUP $(pgrep qutebrowser)" 
+post_hook = "pkill -HUP qutebrowser" 
 
 [templates.gtk3]
 input_path = "~/.config/noctalia/templates/gtk.css"
@@ -34,3 +34,12 @@ output_path = "~/.config/gtk-4.0/gtk.css"
 [templates.zathura]
 input_path = "~/.config/noctalia/templates/zathura"
 output_path = "~/.config/zathura/matugen"
+
+[templates.foot] # actual foot terminal theme on reload
+input_path = "~/.config/noctalia/templates/foot.ini"
+output_path = "~/.config/foot/theme.ini"
+
+[templates.footterm] # temporary change using ANSI
+input_path = "~/.config/noctalia/templates/footterm"
+output_path = "~/.config/foot/colors"
+post_hook = "pkill -USR1 zsh"

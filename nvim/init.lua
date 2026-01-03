@@ -247,7 +247,7 @@ vim.lsp.enable({
 	"cssls",
 })
 
-vim.lsp.config("lua_ls", {
+vim.lsp.config["lua_ls"] = {
 	settings = {
 		Lua = {
 			workspace = {
@@ -255,7 +255,7 @@ vim.lsp.config("lua_ls", {
 			},
 		},
 	},
-})
+}
 
 local blink = require("blink.cmp")
 blink.setup({
@@ -291,6 +291,7 @@ require("conform").setup({
 		json = { "prettierd" },
 		jsonc = { "prettierd" },
 		sh = { "shfmt" },
+		qml = { "qmlformat" },
 	},
 })
 
