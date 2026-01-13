@@ -44,7 +44,7 @@ cursor {
 }
 
 layout {
-    gaps 15
+    gaps 12
     center-focused-column "never"
     always-center-single-column
     default-column-width { proportion 0.5; }
@@ -74,6 +74,7 @@ layout {
 
 overview {
     backdrop-color "#110d14"
+    zoom 0.3
 }
 
 layer-rule {
@@ -85,7 +86,8 @@ binds {
     Super+Return            { spawn "app2unit" "--" "foot" "tmux" "new-session" "-t" "ground"; }
     Super+Shift+Return      { spawn "app2unit" "--" "foot"; }
     Super+Shift+E           { spawn "app2unit" "--" "nautilus"; }
-    Super+E                 { spawn "foot" "yazi"; }
+    Super+P                 { spawn "app2unit" "--" "foot" "btop"; }
+    Super+E                 { spawn "app2unit" "--" "foot" "yazi"; }
     Super+B                 { spawn "app2unit" "--" "qutebrowser"; }
     Super+D                 { spawn "app2unit" "--" "vesktop"; }
     Super+M                 { spawn "app2unit" "--" "spotify"; }

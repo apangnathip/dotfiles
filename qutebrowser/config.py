@@ -11,8 +11,7 @@ theme.setup(c)
 c.auto_save.session = True
 c.scrolling.smooth = True
 c.editor.command = [
-    "ghostty",
-    "-e",
+    "foot",
     "nvim",
     "{file}",
     "+startinsert",
@@ -30,6 +29,9 @@ c.fonts.default_size = "10pt"
 c.content.blocking.method = "both"
 c.content.blocking.enabled = True
 c.content.javascript.clipboard = "access"
+c.content.notifications.enabled = False
+c.content.autoplay = False
+
 c.colors.webpage.preferred_color_scheme = "dark"
 
 config.set("colors.webpage.darkmode.enabled", True, "qute://*")

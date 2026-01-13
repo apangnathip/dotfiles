@@ -83,9 +83,9 @@ vim.pack.add({
 
 require("nvim-autopairs").setup()
 require("nvim-surround").setup()
-require("mason").setup()
 require("substitute").setup()
 require("treesj").setup()
+require("mason").setup()
 
 require("colorizer").setup({
 	user_default_options = {

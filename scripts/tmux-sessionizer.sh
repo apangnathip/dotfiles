@@ -9,7 +9,6 @@ directories=(
   "$HOME/work"
 )
 
-
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
