@@ -48,12 +48,15 @@ alias sv=sudoedit
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
+alias cpr="cp -r"
 alias ls="eza -F always"
 alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
 alias lt="eza -TF always --level=3"
 alias tp="trashy put"
 alias land="test -z $TMUX && exec tmux new-session -t ground"
+alias boot-windows="systemctl reboot --boot-loader-entry=auto-windows"
+alias boot-firmware="systemctl reboot --firmware-setup"
 
 zv() { z "$1" && nvim .; }
 

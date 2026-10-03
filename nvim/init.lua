@@ -44,6 +44,8 @@ vim.keymap.set("n", "<leader>q", "q", { noremap = true })
 vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<cr>")
 vim.keymap.set("n", "gwd", vim.diagnostic.open_float)
 vim.keymap.set("n", "grn", vim.lsp.buf.rename)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { noremap = true, silent = true })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "gzo", "zo")
 vim.keymap.set("n", "gzc", "zc")
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
@@ -52,7 +54,6 @@ vim.keymap.set({ "n", "v" }, "<leader>c", '"_c')
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set({ "n", "v" }, ":", ";")
-
 
 vim.pack.add({
 	"https://github.com/rose-pine/neovim",
@@ -64,6 +65,7 @@ vim.pack.add({
 	"https://github.com/kylechui/nvim-surround",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/windwp/nvim-autopairs",
+	"https://github.com/windwp/nvim-ts-autotag",
 	"https://github.com/christoomey/vim-tmux-navigator",
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
@@ -76,11 +78,14 @@ vim.pack.add({
 	"https://github.com/Wansmer/treesj",
 	"https://github.com/goolord/alpha-nvim",
 	"https://github.com/mrjones2014/smart-splits.nvim",
+	"https://github.com/L3MON4D3/LuaSnip",
+	"https://github.com/OXY2DEV/markview.nvim",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 })
 
+require("nvim-ts-autotag").setup()
 require("nvim-autopairs").setup()
 require("nvim-surround").setup()
 require("substitute").setup()
@@ -190,6 +195,9 @@ require("oil").setup({
 local fzf = require("fzf-lua")
 
 fzf.setup({
+	files = {
+		fd_opts = [[--exclude git --exclude node_modules]],
+	},
 	grep = {
 		hidden = true,
 		follow = true,
@@ -250,6 +258,8 @@ vim.lsp.enable({
 	"fish_lsp",
 	"qmlls",
 	"cssls",
+	"ts_ls",
+	"tailwindcss",
 })
 
 vim.lsp.config["lua_ls"] = {
@@ -262,8 +272,7 @@ vim.lsp.config["lua_ls"] = {
 	},
 }
 
-local blink = require("blink.cmp")
-blink.setup({
+require("blink.cmp").setup({
 	keymap = {
 		["<Tab>"] = {
 			function(cmp)
@@ -279,6 +288,13 @@ blink.setup({
 		menu = {
 			border = "none",
 			winhighlight = "Normal:CursorLine,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+			draw = {
+				columns = {
+					{ "kind_icon" },
+					{ "label", "label_description", gap = 1 },
+					{ "source_name" },
+				},
+			},
 		},
 	},
 })
@@ -289,18 +305,31 @@ require("conform").setup({
 		python = { "black" },
 		cpp = { "clang-format" },
 		c = { "clang-format" },
-		javascript = { "biome" },
-		typescript = { "biome" },
-		html = { "biome" },
+		javascript = { "prettierd" },
+		typescript = { "prettierd" },
+		html = { "superhtml" },
 		css = { "biome" },
 		json = { "prettierd" },
 		jsonc = { "prettierd" },
 		sh = { "shfmt" },
 		qml = { "qmlformat" },
+		javascriptreact = { "prettierd" },
+		typescriptreact = { "biome" },
 	},
 })
 
 vim.keymap.set("n", "gf", require("conform").format)
+
+require("luasnip").setup({ enable_autosnippets = true })
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
+
+vim.keymap.set({ "i", "s" }, "<C-n>", function()
+	require("luasnip").jump(1)
+end)
+vim.keymap.set({ "i", "s" }, "<C-p>", function()
+	require("luasnip").jump(-1)
+end)
+
 -- }}}
 
 -- {{{ Theme
@@ -425,6 +454,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 
 		vim.treesitter.start()
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
 
@@ -446,6 +476,16 @@ vim.api.nvim_create_autocmd("Signal", {
 	callback = function()
 		require("lualine").setup({ options = { theme = "matugen" } })
 	end,
+})
+
+vim.api.nvim_create_autocmd("RecordingEnter", {
+	group = al_au,
+	command = "set cmdheight=1",
+})
+
+vim.api.nvim_create_autocmd("RecordingLeave", {
+	group = al_au,
+	command = "set cmdheight=0",
 })
 -- }}}
 

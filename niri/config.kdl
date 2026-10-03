@@ -1,6 +1,7 @@
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H:%M:%S.png"
+spawn-at-startup "noctalia"
 
 input {
     keyboard {
@@ -28,11 +29,13 @@ input {
 }
 
 output "eDP-1" {
+    mode "1920x1080@165.003"
     variable-refresh-rate
     hot-corners { off; }
 }
 
-output "DP-2" {
+output "GIGA-BYTE TECHNOLOGY CO., LTD. G24F 2 23380B001644" {
+    mode "1920x1080@165.000"
     variable-refresh-rate
     hot-corners { off; }
     focus-at-startup
@@ -61,7 +64,12 @@ layout {
         proportion 1.0
     }
 
-    focus-ring { width 1; }
+    focus-ring { 
+        width 1 
+        active-color "#c2c2c2"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
 
     shadow {
         on
@@ -78,8 +86,8 @@ overview {
 }
 
 layer-rule {
-    match namespace="^noctalia-overview*"
-    place-within-backdrop true
+  match namespace="^noctalia-backdrop"
+  place-within-backdrop true
 }
 
 binds {
@@ -89,30 +97,31 @@ binds {
     Super+P                 { spawn "app2unit" "--" "foot" "btop"; }
     Super+E                 { spawn "app2unit" "--" "foot" "yazi"; }
     Super+B                 { spawn "app2unit" "--" "qutebrowser"; }
+    Super+Shift+B           { spawn "app2unit" "--" "zen-browser"; }
     Super+D                 { spawn "app2unit" "--" "vesktop"; }
     Super+M                 { spawn "app2unit" "--" "spotify"; }
     Super+S                 { spawn "app2unit" "--" "steam"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
 
-    Super+Alt+L             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
-    Super+Space             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Super+C                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
-    Super+Tab               { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Super+Comma             { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
-    Super+W                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
-    Ctrl+Alt+Delete         { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
-    KP_Insert repeat=false  { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteInput"; }
+    Super+Alt+L             { spawn-sh "noctalia msg session lock"; }
+    Super+Space             { spawn-sh "noctalia msg panel-toggle launcher"; }
+    // Super+C                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Super+Tab               { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Super+Comma             { spawn-sh "noctalia msg settings-toggle"; }
+    Super+W                 { spawn-sh "noctalia msg panel-toggle wallpaper"; }
+    Ctrl+Alt+Delete         { spawn-sh "noctalia msg panel-toggle session"; }
+    KP_Insert repeat=false  { spawn-sh "noctalia msg mic-mute"; }
 
-    XF86AudioRaiseVolume    allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
-    XF86AudioLowerVolume    allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
-    XF86AudioMute           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "muteOutput"; }
+    XF86AudioRaiseVolume    allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume    allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute           allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
 
-    XF86AudioPlay           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "playPause"; }
-    XF86AudioPrev           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "previous"; }
-    XF86AudioNext           allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "media" "next"; }
+    XF86AudioPlay           allow-when-locked=true { spawn-sh "noctalia msg media toggle"; }
+    XF86AudioPrev           allow-when-locked=true { spawn-sh "noctalia msg media previous"; }
+    XF86AudioNext           allow-when-locked=true { spawn-sh "noctalia msg media next"; }
 
-    XF86MonBrightnessUp     allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
-    XF86MonBrightnessDown   allow-when-locked=true { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+    XF86MonBrightnessUp     allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown   allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
     XF86Launch1 { spawn "rog-control-center"; }
 
@@ -123,6 +132,10 @@ binds {
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
     Mod+L     { focus-column-right; }
+    // Mod+A     { focus-column-left; }
+    // Mod+S     { focus-window-or-workspace-down; }
+    // Mod+W     { focus-window-or-workspace-up; }
+    // Mod+D     { focus-column-right; }
 
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
@@ -266,6 +279,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id="Audacity" title="^$"
+    open-focused false
+}
+
+window-rule {
     match app-id="org.qutebrowser.qutebrowser"
     match app-id="org.quickshell" title="Noctalia" 
     scroll-factor 2
@@ -276,4 +294,3 @@ debug {
   render-drm-device "/dev/dri/renderD128"
 }
 
-include "./noctalia.kdl"

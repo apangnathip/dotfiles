@@ -8,7 +8,7 @@ config.load_autoconfig(False)
 
 theme.setup(c)
 
-c.auto_save.session = True
+c.auto_save.session = False 
 c.scrolling.smooth = True
 c.editor.command = [
     "foot",
@@ -42,7 +42,6 @@ config.set(
 )
 
 config.unbind("d")
-config.unbind(":")
 config.bind("q", "tab-close")
 config.bind("Q", "macro-record")
 config.bind("cs", "config-source")
