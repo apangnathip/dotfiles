@@ -80,9 +80,9 @@ vim.pack.add({
 	"https://github.com/mrjones2014/smart-splits.nvim",
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/OXY2DEV/markview.nvim",
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 })
 
 require("nvim-ts-autotag").setup()

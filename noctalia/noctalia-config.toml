@@ -1,0 +1,112 @@
+[backdrop]
+blur_intensity = 0.099999997764825821
+enabled = true
+
+[bar.default]
+center = [ "workspaces" ]
+end = [ "tray", "notifications", "network", "bluetooth", "volume", "brightness", "battery", "session" ]
+margin_ends = 0
+position = "left"
+radius = 0
+radius_bottom_right = 8
+radius_top_right = 8
+start = [ "clock", "media" ]
+thickness = 32
+widget_spacing = 12
+
+[desktop_widgets]
+enabled = false
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-2" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[shell.launcher]
+categories = false
+
+[shell.panel]
+open_near_click_session = true
+
+[shell.session]
+grid = true
+show_shortcuts = false
+
+[theme]
+source = "wallpaper"
+wallpaper_scheme = "soft"
+
+    [theme.templates]
+    builtin_ids = [ "foot", "gtk3", "gtk4", "niri" ]
+    community_ids = []
+    enable_builtin_templates = true
+    enable_community_templates = true
+
+        [theme.templates.user.tmux]
+        input_path = "~/.config/noctalia/templates/tmux.conf"
+        output_path = "~/.config/tmux/matugen.conf"
+        post_hook = "tmux source-file ~/.config/tmux/tmux.conf"
+
+[wallpaper]
+directory = "/home/alpan/dotfiles/wallpapers"
+transition_duration = 500
+
+    [wallpaper.default]
+    path = "/home/alpan/dotfiles/wallpapers/green-sky-behind-blinds.jpg"
+
+    [wallpaper.last]
+    path = "/home/alpan/dotfiles/wallpapers/green-sky-behind-blinds.jpg"
+
+    [wallpaper.monitors.DP-2]
+    path = "/home/alpan/dotfiles/wallpapers/green-sky-behind-blinds.jpg"
+
+[widget.clock]
+font_family = "JetBrainsMono Nerd Font Propo"
+format = "{:%d:%m}\\n―\\n{:%H:%M}"
+
+[widget.media]
+hide_when_no_media = true
+
+[widget.network]
+show_label = false
+
+[widget.tray]
+drawer = true
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+show_labels = false

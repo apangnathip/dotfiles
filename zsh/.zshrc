@@ -63,7 +63,7 @@ zv() { z "$1" && nvim .; }
 tmux-sessionizer() { "$XDG_CONFIG_HOME/scripts/tmux-sessionizer.sh"; zle reset-prompt; };
 zle -N tmux-sessionizer
 
-TRAPUSR1() { theme-foot; }
+TRAPUSR1() { ~/dotfiles/scripts/theme-foot.sh; }
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

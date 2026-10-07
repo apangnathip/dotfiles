@@ -14,7 +14,3 @@ export FZF_DEFAULT_OPTS="                   \
     --color hl:2,hl+:2,info:6               \
     --color prompt:2,spinner:1,pointer:8    \
     --color gutter:0,separator:0,scrollbar:0"
-
-# for minecraft because we hate nvidia
-export __GL_THREADED_OPTIMIZATIONS=0
-. "$HOME/.cargo/env"

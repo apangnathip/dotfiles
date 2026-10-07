@@ -28,12 +28,6 @@ input {
     mod-key "Alt"
 }
 
-output "eDP-1" {
-    mode "1920x1080@165.003"
-    variable-refresh-rate
-    hot-corners { off; }
-}
-
 output "GIGA-BYTE TECHNOLOGY CO., LTD. G24F 2 23380B001644" {
     mode "1920x1080@165.000"
     variable-refresh-rate
@@ -91,21 +85,16 @@ layer-rule {
 }
 
 binds {
-    Super+Return            { spawn "app2unit" "--" "foot" "tmux" "new-session" "-t" "ground"; }
-    Super+Shift+Return      { spawn "app2unit" "--" "foot"; }
-    Super+Shift+E           { spawn "app2unit" "--" "nautilus"; }
-    Super+P                 { spawn "app2unit" "--" "foot" "btop"; }
-    Super+E                 { spawn "app2unit" "--" "foot" "yazi"; }
-    Super+B                 { spawn "app2unit" "--" "qutebrowser"; }
-    Super+Shift+B           { spawn "app2unit" "--" "zen-browser"; }
-    Super+D                 { spawn "app2unit" "--" "vesktop"; }
-    Super+M                 { spawn "app2unit" "--" "spotify"; }
-    Super+S                 { spawn "app2unit" "--" "steam"; }
+    Super+Return            { spawn "foot" "tmux" "new-session" "-t" "ground"; }
+    Super+Shift+Return      { spawn "foot"; }
+    Super+Shift+E           { spawn "nautilus"; }
+    Super+P                 { spawn "foot" "btop"; }
+    Super+E                 { spawn "foot" "yazi"; }
+    Super+B                 { spawn "firefox"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
 
     Super+Alt+L             { spawn-sh "noctalia msg session lock"; }
     Super+Space             { spawn-sh "noctalia msg panel-toggle launcher"; }
-    // Super+C                 { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
     Super+Tab               { spawn-sh "noctalia msg panel-toggle control-center"; }
     Super+Comma             { spawn-sh "noctalia msg settings-toggle"; }
     Super+W                 { spawn-sh "noctalia msg panel-toggle wallpaper"; }
@@ -132,10 +121,6 @@ binds {
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
     Mod+L     { focus-column-right; }
-    // Mod+A     { focus-column-left; }
-    // Mod+S     { focus-window-or-workspace-down; }
-    // Mod+W     { focus-window-or-workspace-up; }
-    // Mod+D     { focus-column-right; }
 
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
@@ -294,3 +279,5 @@ debug {
   render-drm-device "/dev/dri/renderD128"
 }
 
+
+include "noctalia.kdl"
