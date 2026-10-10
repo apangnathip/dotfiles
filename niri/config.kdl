@@ -2,6 +2,7 @@ hotkey-overlay { skip-at-startup; }
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H:%M:%S.png"
 spawn-at-startup "noctalia"
+spawn-at-startup "/usr/lib/soteria-polkit/soteria"
 
 environment {
     QT_QPA_PLATFORMTHEME "qt5ct"
@@ -103,6 +104,7 @@ binds {
     Super+E                 { spawn "foot" "yazi"; }
     Super+P                 { spawn "foot" "btop"; }
     Super+Shift+E           { spawn "nautilus"; }
+    Super+S                 { spawn "steam"; }
     Super+D                 { spawn "vesktop"; }
     Super+B                 { spawn "firefox"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
@@ -126,62 +128,50 @@ binds {
     XF86MonBrightnessUp     allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
     XF86MonBrightnessDown   allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
-    XF86Launch1 { spawn "rog-control-center"; }
+    Mod+O repeat=false  { toggle-overview; }
+    Mod+Q repeat=false  { close-window; }
 
-    Mod+O repeat=false { toggle-overview; }
-    Mod+Q repeat=false { close-window; }
+    Mod+H               { focus-column-left; }
+    Mod+J               { focus-window-or-workspace-down; }
+    Mod+K               { focus-window-or-workspace-up; }
+    Mod+L               { focus-column-right; }
 
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-right; }
+    Mod+Ctrl+H          { focus-monitor-left; }
+    Mod+Ctrl+J          { focus-monitor-down; }
+    Mod+Ctrl+K          { focus-monitor-up; }
+    Mod+Ctrl+L          { focus-monitor-right; }
 
-    Mod+Shift+H     { move-column-left; }
-    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
-    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
-    Mod+Shift+L     { move-column-right; }
+    Mod+Shift+H         { move-column-left; }
+    Mod+Shift+J         { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K         { move-window-up-or-to-workspace-up; }
+    Mod+Shift+L         { move-column-right; }
 
-    Mod+Home        { focus-column-first; }
-    Mod+End         { focus-column-last; }
-    Mod+Ctrl+Home   { move-column-to-first; }
-    Mod+Ctrl+End    { move-column-to-last; }
+    Mod+Ctrl+Shift+H    { move-column-to-monitor-left; }
+    Mod+Ctrl+Shift+J    { move-column-to-monitor-down; }
+    Mod+Ctrl+Shift+K    { move-column-to-monitor-up; }
+    Mod+Ctrl+Shift+L    { move-column-to-monitor-right; }
 
-    Super+H     { focus-monitor-left; }
-    Super+J     { focus-monitor-down; }
-    Super+K     { focus-monitor-up; }
-    Super+L     { focus-monitor-right; }
+    Super+Ctrl+Shift+H  { move-workspace-to-monitor-left; }
+    Super+Ctrl+Shift+L  { move-workspace-to-monitor-right; }
+    Super+Ctrl+Shift+J  { move-workspace-down; }
+    Super+Ctrl+Shift+K  { move-workspace-up; }
 
-    Super+Shift+H     { move-column-to-monitor-left; }
-    Super+Shift+J     { move-column-to-monitor-down; }
-    Super+Shift+K     { move-column-to-monitor-up; }
-    Super+Shift+L     { move-column-to-monitor-right; }
-
-    Super+Ctrl+Shift+H { move-workspace-to-monitor-left; }
-    Super+Ctrl+Shift+J { move-workspace-to-monitor-down; }
-    Super+Ctrl+Shift+K { move-workspace-to-monitor-up; }
-    Super+Ctrl+Shift+L { move-workspace-to-monitor-right; }
-
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+U         { move-workspace-down; }
-    Mod+Shift+I         { move-workspace-up; }
-
-    Alt+MouseMiddle { close-window; }
+    Alt+MouseMiddle     { close-window; }
 
     Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
     Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
 
-    Mod+WheelScrollRight      { focus-column-right; }
-    Mod+WheelScrollLeft       { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+    Mod+WheelScrollRight            { focus-column-right; }
+    Mod+WheelScrollLeft             { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight       { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft        { move-column-left; }
 
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+    Mod+Shift+WheelScrollDown       { focus-column-right; }
+    Mod+Shift+WheelScrollUp         { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown  { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp    { move-column-left; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -292,6 +282,5 @@ debug {
   honor-xdg-activation-with-invalid-serial
   render-drm-device "/dev/dri/renderD128"
 }
-
 
 include "noctalia.kdl"
