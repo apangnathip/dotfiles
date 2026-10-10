@@ -21,6 +21,44 @@ vim.o.showmode = false
 vim.o.clipboard = "unnamedplus"
 vim.o.cmdheight = 0
 
+-- {{{ Utils
+local utils = {
+  clear_mcursor = function()
+    vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
+  end,
+	contains = function(tab, val)
+		for _, v in ipairs(tab) do
+			if v == val then
+				return true
+			end
+		end
+		return false
+	end,
+	pack_clean = function()
+		local unused = {}
+
+		for _, plugin in ipairs(vim.pack.get()) do
+			if not plugin.active then
+				table.insert(unused, plugin.spec.name)
+			end
+		end
+
+		if #unused == 0 then
+			print("No unused plugins.")
+			return
+		end
+
+		local choice = vim.fn.confirm("Remove unused plugins: " .. table.concat(unused, ", ") .. "?", "&Yes\n&No", 2)
+		if choice == 1 then
+			vim.pack.del(unused)
+		end
+	end,
+}
+
+table.unpack = table.unpack or unpack
+vim.api.nvim_create_user_command("PackClean", utils.pack_clean, {})
+-- }}}
+
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr><cmd>UndotreeFocus<cr>")
 vim.keymap.set("n", "<leader>gs", "<cmd>Git<cr>")
 vim.keymap.set("i", "jk", "<Esc>")
@@ -42,6 +80,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>p", "<cmd>Oil<cr>")
 vim.keymap.set("n", "<leader>q", "q", { noremap = true })
 vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<cr>")
+vim.keymap.set("n", "gl", utils.clear_mcursor)
 vim.keymap.set("n", "gwd", vim.diagnostic.open_float)
 vim.keymap.set("n", "grn", vim.lsp.buf.rename)
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { noremap = true, silent = true })
@@ -82,6 +121,7 @@ vim.pack.add({
 	"https://github.com/OXY2DEV/markview.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 })
 
@@ -103,41 +143,6 @@ vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
 vim.keymap.set("n", "ss", require("substitute").line, { noremap = true })
 vim.keymap.set("n", "S", require("substitute").eol, { noremap = true })
 vim.keymap.set("x", "s", require("substitute").visual, { noremap = true })
-
--- {{{ Utils
-local utils = {
-	contains = function(tab, val)
-		for _, v in ipairs(tab) do
-			if v == val then
-				return true
-			end
-		end
-		return false
-	end,
-	pack_clean = function()
-		local unused = {}
-
-		for _, plugin in ipairs(vim.pack.get()) do
-			if not plugin.active then
-				table.insert(unused, plugin.spec.name)
-			end
-		end
-
-		if #unused == 0 then
-			print("No unused plugins.")
-			return
-		end
-
-		local choice = vim.fn.confirm("Remove unused plugins: " .. table.concat(unused, ", ") .. "?", "&Yes\n&No", 2)
-		if choice == 1 then
-			vim.pack.del(unused)
-		end
-	end,
-}
-
-table.unpack = table.unpack or unpack
-vim.api.nvim_create_user_command("PackClean", utils.pack_clean, {})
--- }}}
 
 -- {{{ Treesitter
 vim.keymap.set({ "x", "o" }, "as", function()
@@ -249,13 +254,26 @@ vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
 -- }}}
 
 -- {{{ LSP
+require("mason-tool-installer").setup({
+  ensure_installed = {
+    "lua-language-server",
+    "bash-language-server",
+    "basedpyright",
+    "clangd",
+    "biome",
+    "qmlls",
+    "css-lsp",
+    "typescript-language-server",
+    "tailwindcss-language-server"
+  }
+})
+
 vim.lsp.enable({
 	"lua_ls",
 	"bashls",
 	"basedpyright",
 	"clangd",
 	"biome",
-	"fish_lsp",
 	"qmlls",
 	"cssls",
 	"ts_ls",
