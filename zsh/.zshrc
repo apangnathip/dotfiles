@@ -85,6 +85,8 @@ bindkey "^[[6~" end-of-history
 bindkey "^[p" tmux-sessionizer 
 bindkey "^f" autosuggest-accept
 bindkey "^X^E" edit-command-line
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 source <(fzf --zsh)
 source ~/.local/bin/powerlevel10k/powerlevel10k.zsh-theme; [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
