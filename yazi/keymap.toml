@@ -1,0 +1,91 @@
+[[mgr.prepend_keymap]]
+on  = "<C-e>"
+run = "shell --confirm 'nautilus .'"
+
+[[mgr.prepend_keymap]]
+on  = "<C-o>"
+run = "shell zsh --block --confirm"
+
+[[mgr.prepend_keymap]]
+on  = "<C-n>"
+run = "shell -- dragon -x -i -T %h"
+
+[[mgr.prepend_keymap]]
+on   = "<C-p>"
+run  = "plugin smart-paste"
+desc = "Paste into the hovered directory or CWD"
+
+[[mgr.prepend_keymap]]
+on   = "2"
+run  = "plugin smart-switch 1"
+desc = "Switch or create tab 2"
+
+[[mgr.prepend_keymap]]
+on   = "3"
+run  = "plugin smart-switch 2"
+desc = "Switch or create tab 3"
+
+[[mgr.prepend_keymap]]
+on   = "4"
+run  = "plugin smart-switch 3"
+desc = "Switch or create tab 4"
+
+[[mgr.prepend_keymap]]
+on   = [ "t", "t" ]
+run  = "plugin smart-tab"
+desc = "Create a tab and enter the hovered directory"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "a" ]
+run  = "plugin compress"
+desc = "Archive selected files"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "p" ]
+run  = "plugin compress -p"
+desc = "Archive selected files (password)"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "h" ]
+run  = "plugin compress -ph"
+desc = "Archive selected files (password+header)"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "l" ]
+run  = "plugin compress -l"
+desc = "Archive selected files (compression level)"
+
+[[mgr.prepend_keymap]]
+on   = [ "c", "a", "u" ]
+run  = "plugin compress -phl"
+desc = "Archive selected files (password+header+level)"
+
+[[mgr.prepend_keymap]]
+on = ["c","x","x"]
+run = "plugin lin-decompress -- --no-password"
+desc = "Extract hovered."
+
+[[mgr.prepend_keymap]]
+on = ["c","x","p"]
+run = "plugin lin-decompress"
+desc = "Extract hovered. Password"
+
+[[mgr.prepend_keymap]]
+on = ["c","x","a"]
+run = "plugin lin-decompress -- --no-hover --tabselect=all"
+desc = "Extract selected in all tabs"
+
+[[mgr.prepend_keymap]]
+on = ["c","x","A"]
+run = "plugin lin-decompress -- --tabselect=all"
+desc = "Extract selected in all tabs. Hovered included"
+
+[[mgr.prepend_keymap]]
+on = ["c","x","c"]
+run = "plugin lin-decompress -- --no-hover --tabselect=current"
+desc = "Extract selected in current tab only"
+
+[[mgr.prepend_keymap]]
+on   = "<C-c>"
+run  = "plugin cdhist -- _ --fuzzy=fzf"
+desc = "Select a directory from history using cdhist"

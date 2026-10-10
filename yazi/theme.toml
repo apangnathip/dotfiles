@@ -1,0 +1,7 @@
+[flavor]
+dark = "noctalia"
+light = "noctalia"
+
+[indicator]
+padding = { open = "█", close = "█" }
+
