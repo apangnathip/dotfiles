@@ -3,6 +3,10 @@ prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d@%H:%M:%S.png"
 spawn-at-startup "noctalia"
 
+environment {
+    QT_QPA_PLATFORMTHEME "qt5ct"
+}
+
 input {
     keyboard {
         repeat-delay 200 
@@ -28,11 +32,20 @@ input {
     mod-key "Alt"
 }
 
+output "PNP(AOC) Q27G3XMN 1APS2JA000560" {
+    mode "2560x1440@180.002"
+    hot-corners { off; }
+    focus-at-startup
+}
+
 output "GIGA-BYTE TECHNOLOGY CO., LTD. G24F 2 23380B001644" {
     mode "1920x1080@165.000"
     variable-refresh-rate
     hot-corners { off; }
-    focus-at-startup
+    transform "270"
+    layout { 
+        default-column-width { proportion 1.0; } 
+    }
 }
 
 cursor {
@@ -87,9 +100,10 @@ layer-rule {
 binds {
     Super+Return            { spawn "foot" "tmux" "new-session" "-t" "ground"; }
     Super+Shift+Return      { spawn "foot"; }
-    Super+Shift+E           { spawn "nautilus"; }
-    Super+P                 { spawn "foot" "btop"; }
     Super+E                 { spawn "foot" "yazi"; }
+    Super+P                 { spawn "foot" "btop"; }
+    Super+Shift+E           { spawn "nautilus"; }
+    Super+D                 { spawn "vesktop"; }
     Super+B                 { spawn "firefox"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
 
