@@ -48,6 +48,7 @@ alias sv=sudoedit
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
+alias o=xdg-open
 alias cpr="cp -r"
 alias ls="eza -F always"
 alias la="eza -aF always"

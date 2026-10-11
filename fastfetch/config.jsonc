@@ -46,10 +46,7 @@
     "font",
     "terminal",
     "cpu",
-    {
-      "type": "gpu",
-      "format": "{2}"
-    },
+    "gpu",
     "memory",
     "break",
     "colors"
