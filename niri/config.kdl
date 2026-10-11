@@ -224,7 +224,8 @@ binds {
     Shift+F12       { screenshot; }
     Ctrl+F12        { screenshot-screen; }
     Alt+F12         { screenshot-window; }
-    Ctrl+Shift+F12  { spawn-sh "wl-paste --type image/png | swappy -f -"; }
+    Ctrl+Shift+F12  { spawn-sh "wl-paste -t image/png | swappy -f -"; }
+    Super+Shift+F12 { spawn-sh "wl-paste -t image/png > /tmp/latest_screenshot.png && dragon /tmp/latest_screenshot.png"; }
 
     Shift+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
