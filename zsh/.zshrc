@@ -44,17 +44,19 @@ setopt globdots
 alias cl=clear
 alias b=bd
 alias cat=bat
-alias sv=sudoedit
+alias se=sudoedit
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
 alias o=xdg-open
-alias cpr="cp -r"
+alias tp=trash
+alias te=trash-empty
+alias tl=trash-list
+alias please="sudo !!"
 alias ls="eza -F always"
 alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
 alias lt="eza -TF always --level=3"
-alias tp="trashy put"
 alias land="test -z $TMUX && exec tmux new-session -t ground"
 alias boot-windows="systemctl reboot --boot-loader-entry=auto-windows"
 alias boot-firmware="systemctl reboot --firmware-setup"
@@ -98,3 +100,5 @@ source "$XDG_CONFIG_HOME/zsh/plugins/bd/bd.zsh"
 
 eval "$(dircolors)"
 eval "$(zoxide init zsh)"
+
+export PATH=$PATH:/home/alpan/.spicetify
