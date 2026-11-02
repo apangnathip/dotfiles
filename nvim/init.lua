@@ -23,9 +23,9 @@ vim.o.cmdheight = 0
 
 -- {{{ Utils
 local utils = {
-  clear_mcursor = function()
-    vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
-  end,
+	clear_mcursor = function()
+		vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
+	end,
 	contains = function(tab, val)
 		for _, v in ipairs(tab) do
 			if v == val then
@@ -100,7 +100,6 @@ vim.pack.add({
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/stevearc/oil.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/kylechui/nvim-surround",
 	"https://github.com/mbbill/undotree",
 	"https://github.com/windwp/nvim-autopairs",
@@ -121,7 +120,7 @@ vim.pack.add({
 	"https://github.com/OXY2DEV/markview.nvim",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+	"https://github.com/carldaws/miser.nvim",
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") },
 })
 
@@ -130,7 +129,10 @@ require("nvim-autopairs").setup()
 require("nvim-surround").setup()
 require("substitute").setup()
 require("treesj").setup()
-require("mason").setup()
+
+require("miser").setup({
+	auto_format = false,
+})
 
 require("colorizer").setup({
 	user_default_options = {
@@ -254,27 +256,12 @@ vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
 -- }}}
 
 -- {{{ LSP
-require("mason-tool-installer").setup({
-  ensure_installed = {
-    "lua-language-server",
-    "bash-language-server",
-    "basedpyright",
-    "clangd",
-    "biome",
-    "qmlls",
-    "css-lsp",
-    "typescript-language-server",
-    "tailwindcss-language-server"
-  }
-})
-
 vim.lsp.enable({
 	"lua_ls",
 	"bashls",
 	"basedpyright",
 	"clangd",
 	"biome",
-	"qmlls",
 	"cssls",
 	"ts_ls",
 	"tailwindcss",
@@ -330,7 +317,6 @@ require("conform").setup({
 		json = { "prettierd" },
 		jsonc = { "prettierd" },
 		sh = { "shfmt" },
-		qml = { "qmlformat" },
 		javascriptreact = { "prettierd" },
 		typescriptreact = { "biome" },
 	},
@@ -442,10 +428,10 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.buttons.val = {
-    dashboard.button( "e", " New file" , ":ene <BAR> startinsert<CR>"),
-    dashboard.button( "f", "󰍉 Find file", ":cd $HOME | FzfLua files<CR>"),
-    dashboard.button( "r", " Recent"   , ":FzfLua oldfiles<CR>"),
-    dashboard.button( "s", " Settings" , ":e $MYVIMRC<CR>"),
+	dashboard.button("e", " New file", ":ene <BAR> startinsert<CR>"),
+	dashboard.button("f", "󰍉 Find file", ":cd $HOME | FzfLua files<CR>"),
+	dashboard.button("r", " Recent", ":FzfLua oldfiles<CR>"),
+	dashboard.button("s", " Settings", ":e $MYVIMRC<CR>"),
 }
 
 require("alpha").setup(dashboard.config)
