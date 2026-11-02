@@ -6,6 +6,7 @@ spawn-at-startup "/usr/lib/soteria-polkit/soteria"
 
 environment {
     QT_QPA_PLATFORMTHEME "qt5ct"
+    SDL_VIDEO_DRIVER "wayland"
 }
 
 input {
@@ -116,6 +117,10 @@ binds {
     Super+W                 { spawn-sh "noctalia msg panel-toggle wallpaper"; }
     Ctrl+Alt+Delete         { spawn-sh "noctalia msg panel-toggle session"; }
     KP_Insert repeat=false  { spawn-sh "noctalia msg mic-mute"; }
+
+    Super+F10               { spawn-sh "noctalia msg plugin noctalia/screen_recorder:service all toggle"; }
+    Super+F11               { spawn-sh "noctalia msg plugin noctalia/screen_recorder:service all replay-toggle"; }
+    Super+F12               { spawn-sh "noctalia msg plugin noctalia/screen_recorder:service all replay-save"; }
 
     XF86AudioRaiseVolume    allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
     XF86AudioLowerVolume    allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
@@ -230,6 +235,7 @@ binds {
     Shift+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
 }
 
 window-rule {
