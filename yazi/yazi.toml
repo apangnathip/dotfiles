@@ -3,6 +3,6 @@ show_hidden = true
 
 [opener]
 edit = [
-	{ run = '${EDITOR:-nvim} "$@"', desc = "$EDITOR", block = true },
+	{ run = "nvim %s", desc = "neovim", block = true },
 ]
 

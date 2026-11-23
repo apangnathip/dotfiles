@@ -11,8 +11,8 @@ environment {
 
 input {
     keyboard {
-        repeat-delay 200 
-        repeat-rate 40
+        repeat-delay 250 
+        repeat-rate 50
     }
 
     touchpad {
@@ -105,10 +105,11 @@ binds {
     Super+E                 { spawn "foot" "yazi"; }
     Super+P                 { spawn "foot" "btop"; }
     Super+Shift+E           { spawn "nautilus"; }
-    Super+S                 { spawn "steam"; }
-    Super+D                 { spawn "vesktop"; }
-    Super+B                 { spawn "firefox"; }
     Mod+Shift+C             { spawn "hyprpicker" "-a"; }
+    Super+S                 { spawn "app2unit" "steam"; }
+    Super+D                 { spawn "app2unit" "vesktop"; }
+    Super+B                 { spawn "app2unit" "firefox"; }
+    Super+Shift+B           { spawn "app2unit" "firefox" "--private-window"; }
 
     Super+Alt+L             { spawn-sh "noctalia msg session lock"; }
     Super+Space             { spawn-sh "noctalia msg panel-toggle launcher"; }
@@ -275,14 +276,16 @@ window-rule {
 }
 
 window-rule {
-    match app-id="Audacity" title="^$"
-    open-focused false
-}
-
-window-rule {
     match app-id="org.qutebrowser.qutebrowser"
     match app-id="org.quickshell" title="Noctalia" 
     scroll-factor 2
+}
+
+window-rule {
+    match app-id="termchooser"
+    default-column-width  { fixed 1000; }
+    default-window-height { fixed 600; }
+    open-floating true
 }
 
 debug {

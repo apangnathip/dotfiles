@@ -52,7 +52,8 @@ alias o=xdg-open
 alias tp=trash
 alias te=trash-empty
 alias tl=trash-list
-alias please="sudo !!"
+alias sudo='sudo '
+alias pls='sudo $(fc -ln -1)'
 alias ls="eza -F always"
 alias la="eza -aF always"
 alias ll="eza -alF always --git --icons=always --time-style=relative"
@@ -60,6 +61,9 @@ alias lt="eza -TF always --level=3"
 alias land="test -z $TMUX && exec tmux new-session -t ground"
 alias boot-windows="systemctl reboot --boot-loader-entry=auto-windows"
 alias boot-firmware="systemctl reboot --firmware-setup"
+alias cp="cp -i"
+alias mv="mv -i"
+alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 
 zv() { z "$1" && nvim .; }
 
