@@ -4,10 +4,6 @@ enable_community_templates = true
 builtin_ids                = []
 community_ids              = []
 
-# [theme.templates.user.palette]
-# input_path = "~/.config/noctalia/templates/palette"
-# output_path = "~/.cache/palette"
-
 [theme.templates.user.vesktop]
 input_path = "~/.config/noctalia/templates/vesktop.css"
 output_path = "~/.config/vesktop/themes/noctalia.theme.css"
@@ -22,19 +18,6 @@ input_path = "~/.config/noctalia/templates/lualine.lua"
 output_path = "~/.config/nvim/lua/lualine/themes/matugen.lua"
 post_hook = "pkill -USR1 nvim"
 
-# [theme.templates.user.qutebrowser]
-# input_path = "~/.config/noctalia/templates/qutebrowser.py"
-# output_path = "~/.config/qutebrowser/theme.py"
-# post_hook = "pkill -HUP qutebrowser" 
-
-# [theme.templates.user.gtk3]
-# input_path = "~/.config/noctalia/templates/gtk.css"
-# output_path = "~/.config/gtk-3.0/gtk.css"
-#
-# [theme.templates.user.gtk4]
-# input_path = "~/.config/noctalia/templates/gtk.css"
-# output_path = "~/.config/gtk-4.0/gtk.css"
-
 [theme.templates.user.foot] # actual foot terminal theme on reload
 input_path = "~/.config/noctalia/templates/foot.ini"
 output_path = "~/.config/foot/theme.ini"
@@ -43,3 +26,7 @@ output_path = "~/.config/foot/theme.ini"
 input_path = "~/.config/noctalia/templates/footterm"
 output_path = "~/.config/foot/colors"
 post_hook = "pkill -USR1 zsh"
+
+[theme.templates.user.tridactyl]
+input_path = "~/.config/noctalia/templates/tridactyl.css"
+output_path = "~/.config/tridactyl/themes/noctalia.css"
